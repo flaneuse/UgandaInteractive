@@ -6,7 +6,9 @@ library(grid)
 
 # colors
 colorM = '#7A92E2'
+colorMdk = '#033468'
 colorF = '#E37686'
+colorFdk = '#650E29'
 
 # function to import population pyramid projections.
 
@@ -53,6 +55,9 @@ theme_classicLH<- function() {
 
 
 
+# server ------------------------------------------------------------------
+
+
 server <- function(input, output) {
   
   output$popDistribStacked = renderPlot({
@@ -61,16 +66,19 @@ server <- function(input, output) {
       filter(year == input$yearSlider)
     
     
-    ggplot(popData, aes(x = `Age.Cohort`, fill = type)) +
+    ggplot(popData, aes(x = `Age.Cohort`)) +
       geom_bar(aes(y = Male), stat = 'identity', 
-               position = 'identity', alpha = 0.4, 
+               position = 'identity', alpha = 0.6, 
                fill = colorM) +
-      geom_hline(xInt = 0, size = 2, colour = 'white') +
+
       # scale_fill_manual(values = c('no intervention' = 'black', 
-                                   # '25% fertility reduction' = '#7A92E2')) +
+      # '25% fertility reduction' = '#7A92E2')) +
       geom_bar(aes(y = -1*Female), stat = 'identity', 
-               position = 'identity', alpha = 0.4, 
+               position = 'identity', alpha = 0.6, 
                fill = colorF) +
+ 
+      geom_hline(xInt = 0, size = 2, colour = 'white') +
+      
       theme_classicLH() +
       coord_flip(ylim = c(-6,6)) +
       ylab('population (in millions)') +
@@ -93,3 +101,46 @@ server <- function(input, output) {
 #       coord_flip(ylim = c(-6,6))
   })
 }
+
+
+
+
+
+
+# different colors --------------------------------------------------------
+# 
+# baseData = allPopData %>% 
+#   filter(year == input$yearSlider,
+#          type == 'no intervention')
+# 
+# redData = allPopData %>% 
+#   filter(year == input$yearSlider,
+#          type == '25% fertility reduction')
+# 
+# 
+# ggplot(baseData, aes(x = `Age.Cohort`)) +
+#   geom_bar(aes(y = Male), stat = 'identity', 
+#            position = 'identity', alpha = 0.4, 
+#            fill = colorMdk) +
+#   
+#   geom_bar(aes(x = `Age.Cohort`, y = Male), data = redData,
+#            stat = 'identity', 
+#            alpha = 1, 
+#            fill = colorM) +
+#   
+#   geom_bar(aes(y = -1*Female), stat = 'identity', 
+#            alpha = 0.4, 
+#            fill = colorFdk) +
+#   
+#   geom_bar(aes(x = `Age.Cohort`, y = -1*Female), data = redData,
+#            stat = 'identity', 
+#            alpha = 1, 
+#            fill = colorF) +
+#   
+#   geom_hline(xInt = 0, size = 2, colour = 'white') +
+#   
+#   theme_classicLH() +
+#   coord_flip(ylim = c(-6,6)) +
+#   ylab('population (in millions)') +
+#   ggtitle(input$yearSlider)
+
