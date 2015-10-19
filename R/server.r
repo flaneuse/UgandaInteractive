@@ -10,6 +10,10 @@ colorMdk = '#033468'
 colorF = '#E37686'
 colorFdk = '#650E29'
 
+percent = function(x, ndigits = 1) {
+  paste0(sprintf("%.f", round(x*100, ndigits)), "%")
+}
+
 # function to import population pyramid projections.
 
 allPopData <- read.csv("~/Documents/USAID/Uganda Interactive Report/data/pop_pyramids/allPopData.csv")
@@ -17,7 +21,8 @@ allPopData <- read.csv("~/Documents/USAID/Uganda Interactive Report/data/pop_pyr
 allPopData = allPopData %>% 
   mutate(type = ifelse(type == 'base',
                        'no intervention',
-                       '25% fertility reduction'))
+                       '25% fertility reduction'),
+         ratio = percent(Female / (Female + Male)))
 
 
 allPopData$Age.Cohort = factor(allPopData$Age.Cohort,
@@ -25,6 +30,14 @@ allPopData$Age.Cohort = factor(allPopData$Age.Cohort,
                                  ' 40- 44',  ' 45- 49',  ' 50- 54',  ' 55- 59',  ' 60- 64',  ' 65- 69',  ' 70- 74',  ' 75- 79',
                                  ' 80- 84',  ' 85- 89',  ' 90- 94',  ' 95- 99', '100+' ))
 
+allPopData  = allPopData  %>% select(-X.1)
+
+write.csv(allPopData, "~/GitHub/UgandaInteractive/UG_Futures_popPyramids.csv")
+library(rjson)
+
+allPopJSON = toJSON(allPopData)
+
+write.table(allPopJSON, "~/GitHub/UgandaInteractive/UG_Futures_popPyramids.json")
 
 years = unique(allPopData$year)
 
@@ -78,6 +91,8 @@ server <- function(input, output) {
                fill = colorF) +
  
       geom_hline(xInt = 0, size = 2, colour = 'white') +
+      
+      # geom_text(aes(y = Male + 1, label = ratio)) +
       
       theme_classicLH() +
       coord_flip(ylim = c(-6,6)) +
