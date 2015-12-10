@@ -1,0 +1,167 @@
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line, 
+.axis1 path,
+.axis1 line {
+  fill: none;
+  stroke: #E6E7E8;
+  shape-rendering: crispEdges;
+	
+}
+
+.x.axis path, .x.axis1 path {
+    
+}
+
+
+
+.line {
+  fill: none;
+  stroke-width: 8px;
+}
+.linefine {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+
+.legend-box {
+  cursor: pointer;  
+}
+
+#mouse-tracker {
+  stroke: #E6E7E8;
+  stroke-width: 1px;
+}
+
+.hover-line { 
+  stroke: #E6E7E8;
+  fill: none;
+  stroke-width: 1px;
+  left: 10px;
+  shape-rendering: crispEdges;
+  opacity: 1e-6;
+}
+
+.hover-text {
+  stroke: none;
+  font-size: 30px;
+  font-weight: bold;
+  fill: #000000;
+}
+
+.tooltip {
+  font-weight: normal;
+  color: black;
+}
+
+.brush .extent {
+  stroke: #FFF;
+  shape-rendering: crispEdges;
+}
+/*#map { 
+	height: 500px;
+	width: 50%;
+	float: left;
+ }*/
+.map35 { 
+	height: 500px;
+	width: 75%;
+	margin: auto;
+	position: relative;
+	/*float: right;*/
+	margin-top: 0%
+ }
+.maprow{
+	
+	margin: auto;
+	width: 90%;	
+}
+.mapheader{
+	position: relative;
+	float: center;
+	margin-left: 37%;
+}
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+#map{
+        min-height: 100%;
+		height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+#text{
+		position: absolute;
+		left: 10%;
+		bottom: 50%;
+	    width: 30%;
+		height: 25%; 
+        font-family: "Trebuchet MS";
+		color: #ffffff;
+		text-shadow: 2px 2px #000000;
+		font-size: 30px; 		
+	  }
+#startbutton{
+	position: relative;
+	margin-left: 20%;
+	bottom: 50%;
+	color: #ffffff;
+}
+#UGtfrChart{
+	/*background-color:white;*/
+}
+.legendtfr{
+	position: absolute;
+	right: 0;
+	color:white;
+}
+.x_axis{
+	
+}
+.maplegend{
+	opacity: 0.9;
+}
+
+.leaflet-overlay-pane{
+	cursor: pointer;
+}
+.verticalimage{
+	margin: 0 auto;
+}
+.carousel-circles{
+	color: black;
+}
+.chartTitle{
+	color: white;
+}
+.milestonetext{
+	font-size: 15px
+}
+.scroll-invite-btn {
+	height: 52px;
+	background: url(../img/scroll-invite.png);
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-size: 130px 52px;
+	cursor: pointer;
+	margin-left:0%;
+}

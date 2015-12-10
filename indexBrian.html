@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Customize Map Navigation Animation</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+
+	
+    <style>
+      html, body, #map{
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+	  #text{
+		position: absolute;
+		left: 800px;
+		top: 300px;
+	    width: 500px;
+		height: 200px; 
+        font-family: "Trebuchet MS";
+		color: #ffffff;
+		text-shadow: 2px 2px #000000;
+		font-size: 40px; 		
+	  }
+      body {
+        background-color: #FFF;
+        overflow: hidden;
+        font-family: "Trebuchet MS";
+      }
+    </style>     
+    <script src="http://js.arcgis.com/3.14/"></script>
+    <script>
+	  var run = 0;
+      var map;
+	  var dynamicMapServiceLayer; 
+
+      require(["esri/map", "esri/layers/ArcGISDynamicMapServiceLayer", "esri/config", "dojo/domReady!"], function(Map, ArcGISDynamicMapServiceLayer, esriConfig) {
+        //configure map animation to be faster
+        esriConfig.defaults.map.panDuration = 1; // time in milliseconds, default panDuration: 350
+        esriConfig.defaults.map.panRate = 1; // default panRate: 25
+        esriConfig.defaults.map.zoomDuration = 3500; // default zoomDuration: 500
+        esriConfig.defaults.map.zoomRate = 1; // default zoomRate: 25
+
+        map = new Map("map", {
+          basemap: "satellite",
+          center: [19, 5],
+          zoom: 5,
+		  smartNavigation: false
+        });
+		
+		dynamicMapServiceLayer = new ArcGISDynamicMapServiceLayer("http://geocenterusaid.org/geocenter/rest/services/Uganda/Uganda_PopulationChange/MapServer", {
+          "opacity" : 1.0
+		  });
+
+		dynamicMapServiceLayer.setVisibleLayers([]);	
+		
+
+		
+		
+        map.addLayer(dynamicMapServiceLayer);
+		
+		map.on("load", function(){
+		map.disablePan();
+		map.disableScrollWheelZoom(); 
+		map.disableRubberBandZoom();
+		map.disableClickRecenter();
+		map.disableDoubleClickZoom();
+		map.disableShiftDoubleClickZoom(); 
+		map.disableKeyboardNavigation();
+		map.hidePanArrows();
+		map.hideZoomSlider();
+		map.disableMapNavigation();
+		}); 
+		
+		map.on("update-end", RunAnimation);
+		
+      });
+	  
+	  function ReRun(){
+			//alert("Rerunning animation"); 
+			run = 0; 
+			map.centerAndZoom([19,5],5); 
+		}
+		
+		function RunAnimation(){
+		//alert("running"); 
+			if(run == 0){
+			//alert("running"); 
+			//setInterval(function () {dojo.byId("text").innerHTML="Located in the heart of Africa, Uganda is known as the Pearl of Africa. "; map.centerAndZoom([30,0],8);}, 3000);
+			setTimeout(function () {dojo.byId("text").innerHTML="Africa: A land of 1.1 billion people, and bigger than China, India, the contiguous U.S. Combined";}, 500);
+			setTimeout(function () {run = 5; dynamicMapServiceLayer.setDPI(150); dynamicMapServiceLayer.setVisibleLayers([1,6,7]);}, 6500);
+			setTimeout(function () {dojo.byId("text").innerHTML="In the heart of Africa is Uganda, a small landlocked country known by many as the <i>Pearl of Africa</i>. ";}, 7000);
+			setTimeout(function () {run = 1; map.centerAndZoom([32.8,1.6],8);}, 11000);
+			}
+			
+			if(run == 1){
+			setTimeout(function () {dojo.byId("text").innerHTML="Despite its natural beauty, the country remains plauged by high fertility rates and over population. ";}, 200);
+			setTimeout(function () {dojo.byId("text").innerHTML="Between 1969 and 2014, Uganda's population has grown from 9.5 million  to 34.9 million. ";}, 7000);
+			setTimeout(function () {dojo.byId("text").innerHTML="In 1991, the population of Uganda was only Z.Z million people. ";}, 13000);
+			
+			setTimeout(function () {run = 2; dynamicMapServiceLayer.setDPI(96); dynamicMapServiceLayer.setVisibleLayers([2,3]);}, 12500);
+			}
+			
+			if(run == 2){
+			setTimeout(function () {dojo.byId("text").innerHTML="By 2002, the population of Uganda had jumped to Z.Z million people. ";}, 5000);
+			setTimeout(function () {run = 3; dynamicMapServiceLayer.setVisibleLayers([2,4]);}, 5000);
+			}
+			
+			if(run == 3){
+			setTimeout(function () {dojo.byId("text").innerHTML="Today, at 34.9 million people, the growth continues.";}, 5000);
+			setTimeout(function () {run = 4; dynamicMapServiceLayer.setVisibleLayers([2,5]);}, 5000);
+			}
+			
+			if(run == 4){
+			setTimeout(function () {dojo.byId("text").innerHTML="What are the effects of the population growth? What happens if growth rates increase or decline? Scroll down to learn more about the growth and its affects on this great African country. <br><br><button type='button' onclick='ReRun();'>Rerun Animation</button>"; map.showPanArrows(); map.showZoomSlider(); }, 5000);
+			}
+			
+		}
+	  
+    </script>
+  </head>
+  <body>
+
+    <div id="map"></div>
+  	<div id="text"></div>
+  </body>
+</html>

@@ -1,0 +1,445 @@
+
+<!DOCTYPE html><html class=''>
+<head><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="canonical" href="http://codepen.io/jay3dec/pen/glLxK/" />
+
+
+<style class="cp-pen-styles">        .axis path, .axis line
+        {
+            fill: none;
+            stroke: #777;
+            shape-rendering: crispEdges;
+        }
+        
+        .axis text
+        {
+            font-family: 'Arial';
+            font-size: 13px;
+        }
+        .tick
+        {
+            stroke-dasharray: 1, 2;
+        }
+        .bar
+        {
+            fill: FireBrick;
+        }
+        
+       </style></head><body>
+	   In 1962, when Uganda gained independence, the population was a mere 7 million people. By the beginning of the new millenium, the population had more than trippled to 23 million. Today, 16 years later, the population has grown to 39 Million. <br><br> 
+	   <p id="FutureInfo"><button onclick="ShowFutureLine()">Where does population go from here?</button></p>
+	   <p id="MilestoneB"></p>
+	   
+<svg id="visualisation" width="1000" height="500"></svg>
+<script src='http://assets.codepen.io/assets/common/stopExecutionOnTimeout.js?t=1'></script><script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script src='http://d3js.org/d3.v3.min.js'></script>
+<script>
+//InitChart();
+//function InitChart() {
+    var barData = [
+        {
+            'x': 1961,
+            'y': 	200000,
+			'z': 'Independence- 1962: 7 M'
+        },
+        {
+             'x': 1999,
+            'y': 	200000,
+			'z': 'Beginning of Millenium: 23 M'
+        },
+        {
+            'x': 2014,
+            'y': 	200000,
+			'z': 'Today: 39 M'
+        },
+        {
+            'x': 2022,
+            'y': 	200000,
+			'z': '2023: Population expected to hit 50 M'
+        },
+        {
+             'x': 2048,
+            'y': 	200000,
+			'z': '2049: Population expected to hit 100 M'
+        },
+		 {
+             'x': 2099,
+            'y': 	200000,
+			'z': '2100: Population tops 200 M'
+        }
+    ];
+	
+	var lineData1 = [
+		{
+            'x': 1950,
+            'y': 	5158,
+        },
+{
+            'x': 1955,
+            'y': 	5899,
+        },
+{
+            'x': 1960,
+            'y': 	6788,
+        },
+{
+            'x': 1965,
+            'y': 	8014,
+        },
+{
+            'x': 1970,
+            'y': 	9446,
+        },
+{
+            'x': 1975,
+            'y': 	10827,
+        },
+{
+            'x': 1980,
+            'y': 	12548,
+        },
+{
+            'x': 1985,
+            'y': 	14631,
+        },
+{
+            'x': 1990,
+            'y': 	17384,
+        },
+{
+            'x': 1995,
+            'y': 	20413,
+        },
+{
+            'x': 2000,
+            'y': 	23758,
+        },
+{
+            'x': 2005,
+            'y': 	28042,
+        },
+{
+            'x': 2010,
+            'y': 	33149,
+        },
+{
+            'x': 2015,
+            'y': 	39032,
+        }
+]; 
+	
+	
+	var lineData2 = [
+	{
+            'x': 2015,
+            'y': 	39032,
+        },
+{
+            'x': 2020,
+            'y': 	45856,
+        },
+{
+            'x': 2025,
+            'y': 	53497,
+        },
+{
+            'x': 2030,
+            'y': 	61929,
+        },
+{
+            'x': 2035,
+            'y': 	71102,
+        },
+{
+            'x': 2040,
+            'y': 	80904,
+        },
+{
+            'x': 2045,
+            'y': 	91190,
+        },
+{
+            'x': 2050,
+            'y': 	101873,
+        },
+{
+            'x': 2055,
+            'y': 	112864,
+        },
+{
+            'x': 2060,
+            'y': 	124029,
+        },
+{
+            'x': 2065,
+            'y': 	135228,
+        },
+{
+            'x': 2070,
+            'y': 	146276,
+        },
+{
+            'x': 2075,
+            'y': 	157089,
+        },
+{
+            'x': 2080,
+            'y': 	167483,
+        },
+{
+            'x': 2085,
+            'y': 	177374,
+        },
+{
+            'x': 2090,
+            'y': 	186650,
+        },
+{
+            'x': 2095,
+            'y': 	195177,
+        },
+{
+            'x': 2100,
+            'y': 	202868,
+        }
+	];
+	
+	
+	var lineData = [
+		{
+            'x': 1950,
+            'y': 	5158,
+        },
+{
+            'x': 1955,
+            'y': 	5899,
+        },
+{
+            'x': 1960,
+            'y': 	6788,
+        },
+{
+            'x': 1965,
+            'y': 	8014,
+        },
+{
+            'x': 1970,
+            'y': 	9446,
+        },
+{
+            'x': 1975,
+            'y': 	10827,
+        },
+{
+            'x': 1980,
+            'y': 	12548,
+        },
+{
+            'x': 1985,
+            'y': 	14631,
+        },
+{
+            'x': 1990,
+            'y': 	17384,
+        },
+{
+            'x': 1995,
+            'y': 	20413,
+        },
+{
+            'x': 2000,
+            'y': 	23758,
+        },
+{
+            'x': 2005,
+            'y': 	28042,
+        },
+{
+            'x': 2010,
+            'y': 	33149,
+        },
+{
+            'x': 2015,
+            'y': 	39032,
+        },
+{
+            'x': 2020,
+            'y': 	45856,
+        },
+{
+            'x': 2025,
+            'y': 	53497,
+        },
+{
+            'x': 2030,
+            'y': 	61929,
+        },
+{
+            'x': 2035,
+            'y': 	71102,
+        },
+{
+            'x': 2040,
+            'y': 	80904,
+        },
+{
+            'x': 2045,
+            'y': 	91190,
+        },
+{
+            'x': 2050,
+            'y': 	101873,
+        },
+{
+            'x': 2055,
+            'y': 	112864,
+        },
+{
+            'x': 2060,
+            'y': 	124029,
+        },
+{
+            'x': 2065,
+            'y': 	135228,
+        },
+{
+            'x': 2070,
+            'y': 	146276,
+        },
+{
+            'x': 2075,
+            'y': 	157089,
+        },
+{
+            'x': 2080,
+            'y': 	167483,
+        },
+{
+            'x': 2085,
+            'y': 	177374,
+        },
+{
+            'x': 2090,
+            'y': 	186650,
+        },
+{
+            'x': 2095,
+            'y': 	195177,
+        },
+{
+            'x': 2100,
+            'y': 	202868,
+        }
+	];
+    var vis = d3.select('#visualisation'), WIDTH = 1000, HEIGHT = 500, MARGINS = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 50
+        }, xRange = d3.scale.linear().range([
+            MARGINS.left,
+            WIDTH - MARGINS.right
+        ]).domain([
+            d3.min(lineData, function (d) {
+                return d.x;
+            }),
+            d3.max(lineData, function (d) {
+                return d.x;
+            })
+        ]), yRange = d3.scale.linear().range([
+            HEIGHT - MARGINS.top,
+            MARGINS.bottom
+        ]).domain([
+            d3.min(lineData, function (d) {
+                return d.y;
+            }),
+            d3.max(lineData, function (d) {
+                return d.y;
+            })
+        ]), xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickSubdivide(true), yAxis = d3.svg.axis().scale(yRange).tickSize(5).orient('left').tickSubdivide(true);
+    vis.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis);
+    vis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis);
+    
+	var lineFunc = d3.svg.line().x(function (d) {
+        return xRange(d.x);
+    }).y(function (d) {
+        return yRange(d.y);
+    }).interpolate('linear');
+    //var LineGraph = vis.append('svg:path').attr('d', lineFunc(lineData1)).attr('stroke', 'blue').attr('stroke-width', 2).attr('fill', 'none').attr('class','MyLine');
+	var LineGraph = vis.append('svg:path'); 
+	var LineGraph2 = vis.append('svg:path'); 
+	LineGraph.transition().duration(1000).ease("linear").attr("d", lineFunc(lineData1)).attrTween('d', pathTween).attr('stroke', 'blue').attr('stroke-width', 2).attr('fill', 'none');
+	
+	 function pathTween() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, lineData1.length + 1));
+        return function(t) {
+            return lineFunc(lineData1.slice(0, interpolate(t)));
+        };
+    }
+	
+		 function pathTween2() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, lineData2.length + 1));
+        return function(t) {
+            return lineFunc(lineData2.slice(0, interpolate(t)));
+        };
+    }
+	
+	
+	function ShowFutureLine(){
+	document.getElementById("FutureInfo").innerHTML = "Growth estimates indicate continued rapid population increases. In less than 10 years, population will hit 50 million. By 2050 population will exceed 100 million, almost 1/3 the current population of the United States. If left unchecked, the population could hit 200 million by the end of the century."; 
+	document.getElementById("MilestoneB").innerHTML ="<button onclick='ShowBars()'>See Major Milestones</button>"
+	LineGraph2.transition().duration(2000).ease("linear").attr("d", lineFunc(lineData2)).attrTween('d', pathTween2).attr('stroke', 'red').attr('stroke-width', 2).attr('fill', 'none');
+	//vis.select('MyLine').transition().duration(3000).ease("linear");
+	//vis.append('MyLine').attr('d', lineFunc(lineData)).attr('stroke', 'blue').attr('stroke-width', 2).attr('fill', 'none');
+	}
+	
+	function ShowBars(){
+	
+	document.getElementById("MilestoneB").innerHTML ="<button onclick='HideBars()'>Hide Major Milestones</button>"; 
+	
+	 vis.selectAll('rect').data(barData).enter().append('rect').attr('x', function (d) {
+        return xRange(d.x);
+    }).attr('y', function (d) {
+        return yRange(d.y);
+    }).attr('width', 20).attr('height', function (d) {
+        return HEIGHT - MARGINS.bottom - yRange(d.y);
+    }).attr('fill', 'gray');
+
+	
+	vis.selectAll('bartext').
+	data(barData).
+	enter().
+	append('text').
+	//attr("transform",  "translate("+function (d) {return (xRange(d.x))/2;}+ ", " + function (d) {return (yRange(d.y))/2;} + ") rotate(90)" ).
+	//attr("transform", "rotate(-45)").
+	attr('x', function (d) {return xRange(d.x);}).
+	attr('y', 250).
+	attr('dx', 10).
+	attr("dy", "1.2em").
+    attr("text-anchor", "middle").
+	style("writing-mode", "tb").
+	text(function (d) {return d.z;}).
+    attr('fill', 'white'); 
+	}
+	
+	function HideBars(){
+	vis.selectAll('rect').style("opacity", 0);
+	document.getElementById("MilestoneB").innerHTML ="<button onclick='ReshowBars()'>Show Major Milestones</button>"; 	
+	}
+	
+	function ReshowBars(){
+	vis.selectAll('rect').style("opacity", 1);
+	document.getElementById("MilestoneB").innerHTML ="<button onclick='HideBars()'>Hide Major Milestones</button>"; 
+	}
+		//
+	
+
+	
+//}
+//@ sourceURL=pen.js
+</script>
+<script src='http://codepen.io/assets/editor/live/css_live_reload_init.js'></script><br>
+
+</body></html>
