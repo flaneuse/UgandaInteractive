@@ -1,0 +1,2338 @@
+
+<!DOCTYPE html><html class=''>
+<head><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="canonical" href="http://codepen.io/jay3dec/pen/glLxK/" />
+
+
+<style class="cp-pen-styles">        .axis path, .axis line
+        {
+            fill: none;
+            stroke: white;
+            shape-rendering: crispEdges;
+        }
+        
+        .axis text
+        {
+            font-family: 'Arial';
+            font-size: 13px;
+        }
+        .tick
+        {
+            stroke-dasharray: 1, 2;
+        }
+       
+		.legend rect {
+			fill:white;
+			stroke:black;
+			opacity:0.8;
+			width:150px;
+			height:150px;}
+		.chartTitle{
+			color: white;
+		}
+			
+		<style id="jsbin-css">
+svg {
+  border: 1px solid #ccc;
+}
+h2{
+	text-align: center;
+}
+
+
+
+.bar {
+  fill-opacity: 0.5;
+}
+.bar.left {
+  fill: steelblue;
+}
+.bar.right {
+  fill: firebrick;
+  }
+ #PopChartDiv{
+ position: fixed;
+ width: 520px;
+ height: 270px; 
+ left: 20px;
+ top: 110px;
+ }
+ #PopPyramidDiv{
+ position: fixed;
+  width: 520px;
+ height: 270px; 
+  left: 540px;
+ top: 110px;
+ }
+ #EdChartDiv{
+ position: fixed;
+  width: 520px;
+ height: 270px; 
+  left: 20px;
+ top: 500px;
+ }
+ #MlNutChartDiv{
+ position: fixed;
+  width: 520px;
+ height: 270px; 
+  left: 540px;
+ top: 500px;
+ }
+  
+       </style></head><body>
+	   
+	   
+
+<b><input type="radio" name="fr" value="5Inc" onclick="changeVals('Inc');">Increase in Sector Indicator <input type="radio" name="fr" value="Current" checked="checked" onclick="changeVals('Curr');">Current Rates <input type="radio" name="fr" value="Dec" onclick="changeVals('Dec');">Slow TFR Decline </b>
+	   
+	   
+	   <div id="PopChartDiv" class="chartTitle">Rural Population</div>
+	   
+	   
+	   <div id="PopPyramidDiv" class="chartTitle">Urban Population</div>
+	   
+	   
+	   <div id="EdChartDiv" class="chartTitle">Education Attainment</div>
+	   
+	   
+	   <div id="MlNutChartDiv" class="chartTitle">Malnutrition</div>
+
+<script src='http://assets.codepen.io/assets/common/stopExecutionOnTimeout.js?t=1'></script><script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script src='http://d3js.org/d3.v3.min.js'></script>
+<script src="http://bl.ocks.org/ZJONSSON/raw/3918369/d3.legend.js"></script>
+<script>
+//InitChart();
+//function InitChart() {
+
+
+// ------------------- Beginning of chart for Overall Population Growth -------------------------
+function changeVals(ValDir){
+ShowFuturePopLine(ValDir);
+ShowFutureEdLine(ValDir);
+ShowFutureMlNutLine(ValDir);
+ShowFutureUrbPopLine(ValDir);
+
+leftBarGroup.selectAll('.bar.left').remove(); 
+rightBarGroup.selectAll('.bar.right').remove(); 
+
+//alert(chng); 
+	
+leftBarGroup.selectAll('.bar.left')
+  .data(eval("exampleData"+ValDir))
+  .enter().append('rect')
+    .attr('class', 'bar left')
+    .attr('x', 0)
+    .attr('y', function(d) { return PPyScale(d.group); })
+   .attr('width', function(d) { return PPxScale(d.male); })
+    .attr('height', PPyScale.rangeBand());
+
+rightBarGroup.selectAll('.bar.right')
+  .data(eval("exampleData"+ValDir))
+  .enter().append('rect')
+    .attr('class', 'bar right')
+    .attr('x', 0)
+    .attr('y', function(d) { return PPyScale(d.group); })
+    .attr('width', function(d) { return PPxScale(d.female); })
+    .attr('height', PPyScale.rangeBand());
+	
+}
+
+var PopSvg = d3.select("#PopChartDiv").append("svg")
+    .attr("width", 500)
+    .attr("height", 250)
+	.attr("id", "PopVisualisation");
+	
+	var PopDataCurr = [
+		  {
+			"x":2010,
+			"y":28.84
+		  },
+		  {
+			"x":2011,
+			"y":29.63
+		  },
+		  {
+			"x":2012,
+			"y":30.45
+		  },
+		  {
+			"x":2013,
+			"y":31.3
+		  },
+		  {
+			"x":2014,
+			"y":32.18
+		  },
+		  {
+			"x":2015,
+			"y":33.09
+		  },
+		  {
+			"x":2016,
+			"y":34.02
+		  },
+		  {
+			"x":2017,
+			"y":34.98
+		  },
+		  {
+			"x":2018,
+			"y":35.97
+		  },
+		  {
+			"x":2019,
+			"y":36.97
+		  },
+		  {
+			"x":2020,
+			"y":37.99
+		  },
+		  {
+			"x":2021,
+			"y":39.03
+		  },
+		  {
+			"x":2022,
+			"y":40.08
+		  },
+		  {
+			"x":2023,
+			"y":41.14
+		  },
+		  {
+			"x":2024,
+			"y":42.22
+		  },
+		  {
+			"x":2025,
+			"y":43.31
+		  },
+		  {
+			"x":2026,
+			"y":44.41
+		  },
+		  {
+			"x":2027,
+			"y":45.51
+		  },
+		  {
+			"x":2028,
+			"y":46.62
+		  },
+		  {
+			"x":2029,
+			"y":47.72
+		  },
+		  {
+			"x":2030,
+			"y":48.82
+		  },
+		  {
+			"x":2031,
+			"y":49.92
+		  },
+		  {
+			"x":2032,
+			"y":51.02
+		  },
+		  {
+			"x":2033,
+			"y":52.1
+		  },
+		  {
+			"x":2034,
+			"y":53.17
+		  },
+		  {
+			"x":2035,
+			"y":54.23
+		  },
+		  {
+			"x":2036,
+			"y":55.28
+		  },
+		  {
+			"x":2037,
+			"y":56.31
+		  },
+		  {
+			"x":2038,
+			"y":57.33
+		  },
+		  {
+			"x":2039,
+			"y":58.33
+		  },
+		  {
+			"x":2040,
+			"y":59.31
+		  }
+		];
+	
+		var PopDataInc = [
+		  {
+			"x":2010,
+			"y":28.84
+		  },
+		  {
+			"x":2011,
+			"y":29.63
+		  },
+		  {
+			"x":2012,
+			"y":30.45
+		  },
+		  {
+			"x":2013,
+			"y":31.3
+		  },
+		  {
+			"x":2014,
+			"y":32.18
+		  },
+		  {
+			"x":2015,
+			"y":33.09
+		  },
+		  {
+			"x":2016,
+			"y":34.02
+		  },
+		  {
+			"x":2017,
+			"y":34.98
+		  },
+		  {
+			"x":2018,
+			"y":35.97
+		  },
+		  {
+			"x":2019,
+			"y":36.97
+		  },
+		  {
+			"x":2020,
+			"y":37.99
+		  },
+		  {
+			"x":2021,
+			"y":39.03
+		  },
+		  {
+			"x":2022,
+			"y":40.08
+		  },
+		  {
+			"x":2023,
+			"y":41.14
+		  },
+		  {
+			"x":2024,
+			"y":42.22
+		  },
+		  {
+			"x":2025,
+			"y":43.31
+		  },
+		  {
+			"x":2026,
+			"y":44.41
+		  },
+		  {
+			"x":2027,
+			"y":45.51
+		  },
+		  {
+			"x":2028,
+			"y":46.62
+		  },
+		  {
+			"x":2029,
+			"y":47.72
+		  },
+		  {
+			"x":2030,
+			"y":48.82
+		  },
+		  {
+			"x":2031,
+			"y":49.92
+		  },
+		  {
+			"x":2032,
+			"y":51.02
+		  },
+		  {
+			"x":2033,
+			"y":52.1
+		  },
+		  {
+			"x":2034,
+			"y":53.17
+		  },
+		  {
+			"x":2035,
+			"y":54.23
+		  },
+		  {
+			"x":2036,
+			"y":55.28
+		  },
+		  {
+			"x":2037,
+			"y":56.31
+		  },
+		  {
+			"x":2038,
+			"y":57.33
+		  },
+		  {
+			"x":2039,
+			"y":58.33
+		  },
+		  {
+			"x":2040,
+			"y":59.31
+		  }
+		];
+	
+		var PopDataDec = [
+		  {
+			"x":2010,
+			"y":28.84
+		  },
+		  {
+			"x":2011,
+			"y":29.63
+		  },
+		  {
+			"x":2012,
+			"y":30.45
+		  },
+		  {
+			"x":2013,
+			"y":31.3
+		  },
+		  {
+			"x":2014,
+			"y":32.2
+		  },
+		  {
+			"x":2015,
+			"y":33.13
+		  },
+		  {
+			"x":2016,
+			"y":34.12
+		  },
+		  {
+			"x":2017,
+			"y":35.15
+		  },
+		  {
+			"x":2018,
+			"y":36.22
+		  },
+		  {
+			"x":2019,
+			"y":37.33
+		  },
+		  {
+			"x":2020,
+			"y":38.48
+		  },
+		  {
+			"x":2021,
+			"y":39.66
+		  },
+		  {
+			"x":2022,
+			"y":40.88
+		  },
+		  {
+			"x":2023,
+			"y":42.13
+		  },
+		  {
+			"x":2024,
+			"y":43.42
+		  },
+		  {
+			"x":2025,
+			"y":44.73
+		  },
+		  {
+			"x":2026,
+			"y":46.08
+		  },
+		  {
+			"x":2027,
+			"y":47.45
+		  },
+		  {
+			"x":2028,
+			"y":48.84
+		  },
+		  {
+			"x":2029,
+			"y":50.25
+		  },
+		  {
+			"x":2030,
+			"y":51.69
+		  },
+		  {
+			"x":2031,
+			"y":53.15
+		  },
+		  {
+			"x":2032,
+			"y":54.62
+		  },
+		  {
+			"x":2033,
+			"y":56.1
+		  },
+		  {
+			"x":2034,
+			"y":57.6
+		  },
+		  {
+			"x":2035,
+			"y":59.12
+		  },
+		  {
+			"x":2036,
+			"y":60.66
+		  },
+		  {
+			"x":2037,
+			"y":62.21
+		  },
+		  {
+			"x":2038,
+			"y":63.76
+		  },
+		  {
+			"x":2039,
+			"y":65.3
+		  },
+		  {
+			"x":2040,
+			"y":66.84
+		  }
+		];
+	
+    var PopVis = d3.select('#PopVisualisation'), WIDTH = 500, HEIGHT = 250, MARGINS = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 60
+        }, xRange = d3.scale.linear().range([
+            MARGINS.left,
+            WIDTH - MARGINS.right
+        ]).domain([
+            d3.min(PopDataInc, function (d) {
+                return d.x;
+            }),
+            d3.max(PopDataInc, function (d) {
+                return d.x;
+            })
+        ]), yRange = d3.scale.linear().range([
+            HEIGHT - MARGINS.top,
+            MARGINS.bottom
+        ]).domain([
+            d3.min(PopDataInc, function (d) {
+                return d.y;
+            }),
+            d3.max(PopDataInc, function (d) {
+                return d.y;
+            })
+        ]), xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickFormat(d3.format("d")).tickSubdivide(true), yAxis = d3.svg.axis().scale(yRange).tickSize(5).orient('left').tickSubdivide(true);
+    PopVis.append('svg:g').attr('class', 'x axis').style("fill", "white").attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis);
+    PopVis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis).style("fill", "white");
+    
+	var lineFunc = d3.svg.line().x(function (d) {
+        return xRange(d.x);
+    }).y(function (d) {
+        return yRange(d.y);
+    }).interpolate('linear');
+	
+	
+    //var LineGraph = vis.append('svg:path').attr('d', lineFunc(lineData1)).attr('stroke', '#ff7f00').attr('stroke-width', 2).attr('fill', 'none').attr('class','MyLine');
+	var PopGraphIncrease = PopVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","Current TFR Decline");
+	var PopGraphCurr = PopVis.append('svg:path')
+	.attr("data-legend-color","#ff7f00")
+	.attr("data-legend","Current TFR Decline");
+	var PopGraphDecrease = PopVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","Slow TFR Decline"); 
+	
+	PopGraphCurr.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataCurr)).attrTween('d', PoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	PopGraphDecrease.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataInc)).attrTween('d', PoppathTween2).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
+	PopGraphIncrease.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataDec)).attrTween('d', PoppathTween3).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
+	
+	//var svg = d3.select("body").append("svg"); 
+	var PopLegend = PopSvg.append("g")
+	.attr("class","legend")
+  .attr("transform","translate(75,35)")
+  .style("font-size","12px")
+  .call(d3.legend);
+  
+  
+	
+	 function PoppathTween() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, PopDataCurr.length + 1));
+        return function(t) {
+            return lineFunc(PopDataCurr.slice(0, interpolate(t)));
+        };
+    }
+		 function PoppathTween2() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, PopDataDec.length + 1));
+        return function(t) {
+            return lineFunc(PopDataDec.slice(0, interpolate(t)));
+        };
+    }
+		 function PoppathTween3() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, PopDataInc.length + 1));
+        return function(t) {
+            return lineFunc(PopDataInc.slice(0, interpolate(t)));
+        };
+    }
+
+	
+	function ShowFuturePopLine(FutScen){
+	if (FutScen == "Inc"){
+	   PopGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   PopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
+	   PopGraphIncrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");
+	   PopGraphIncrease.transition().duration(2000).ease("linear").attr("d", lineFunc(PopDataInc)).attrTween('d', PoppathTween3).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   PopLegend.call(d3.legend); 
+	   
+	}
+	if (FutScen == "Curr"){
+	   PopGraphCurr.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");;
+	   PopGraphCurr.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataCurr)).attrTween('d', PoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   PopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
+	   PopGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   PopLegend.call(d3.legend);
+	}
+	if (FutScen == "Dec"){
+	   PopGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   PopGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
+	   PopGraphDecrease.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataInc)).attrTween('d', PoppathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   PopGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   PopLegend.call(d3.legend);
+	}
+	}
+	
+	
+		//------------------------ END OF OVERALL POPULATION GRAPH -------------------------------------------
+	
+		//------------------------ START EDUCATION GRAPH -------------------------------------------
+	
+	
+	
+var EdSvg = d3.select("#EdChartDiv").append("svg")
+    .attr("width", 500)
+    .attr("height", 250)
+	.attr("id", "EdVisualisation");
+	
+	var EdDataCurr = [
+		  {
+			'x':2010,
+			'y':59.16
+		  },
+		  {
+			'x':2011,
+			'y':59.16
+		  },
+		  {
+			'x':2012,
+			'y':60.43
+		  },
+		  {
+			'x':2013,
+			'y':60.88
+		  },
+		  {
+			'x':2014,
+			'y':61.33
+		  },
+		  {
+			'x':2015,
+			'y':62
+		  },
+		  {
+			'x':2016,
+			'y':62.96
+		  },
+		  {
+			'x':2017,
+			'y':64.08
+		  },
+		  {
+			'x':2018,
+			'y':65.3
+		  },
+		  {
+			'x':2019,
+			'y':66.06
+		  },
+		  {
+			'x':2020,
+			'y':67.02
+		  },
+		  {
+			'x':2021,
+			'y':67.92
+		  },
+		  {
+			'x':2022,
+			'y':68.71
+		  },
+		  {
+			'x':2023,
+			'y':69.52
+		  },
+		  {
+			'x':2024,
+			'y':70.51
+		  },
+		  {
+			'x':2025,
+			'y':71.54
+		  },
+		  {
+			'x':2026,
+			'y':72.59
+		  },
+		  {
+			'x':2027,
+			'y':73.74
+		  },
+		  {
+			'x':2028,
+			'y':74.81
+		  },
+		  {
+			'x':2029,
+			'y':75.84
+		  },
+		  {
+			'x':2030,
+			'y':76.9
+		  },
+		  {
+			'x':2031,
+			'y':77.63
+		  },
+		  {
+			'x':2032,
+			'y':78.36
+		  },
+		  {
+			'x':2033,
+			'y':79.1
+		  },
+		  {
+			'x':2034,
+			'y':79.86
+		  },
+		  {
+			'x':2035,
+			'y':80.59
+		  },
+		  {
+			'x':2036,
+			'y':81.35
+		  },
+		  {
+			'x':2037,
+			'y':82.05
+		  },
+		  {
+			'x':2038,
+			'y':82.8
+		  },
+		  {
+			'x':2039,
+			'y':83.57
+		  },
+		  {
+			'x':2040,
+			'y':84.38
+		  }
+		];
+		var EdDataInc = [  
+		  {
+			'x':2010,
+			'y':59.16
+		  },
+		  {
+			'x':2011,
+			'y':59.16
+		  },
+		  {
+			'x':2012,
+			'y':60.43
+		  },
+		  {
+			'x':2013,
+			'y':60.88
+		  },
+		  {
+			'x':2014,
+			'y':61.33
+		  },
+		  {
+			'x':2015,
+			'y':62
+		  },
+		  {
+			'x':2016,
+			'y':62.96
+		  },
+		  {
+			'x':2017,
+			'y':64.7
+		  },
+		  {
+			'x':2018,
+			'y':66.55
+		  },
+		  {
+			'x':2019,
+			'y':67.91
+		  },
+		  {
+			'x':2020,
+			'y':69.51
+		  },
+		  {
+			'x':2021,
+			'y':71.04
+		  },
+		  {
+			'x':2022,
+			'y':72.53
+		  },
+		  {
+			'x':2023,
+			'y':74.05
+		  },
+		  {
+			'x':2024,
+			'y':75.69
+		  },
+		  {
+			'x':2025,
+			'y':77.35
+		  },
+		  {
+			'x':2026,
+			'y':79.12
+		  },
+		  {
+			'x':2027,
+			'y':81.15
+		  },
+		  {
+			'x':2028,
+			'y':83.12
+		  },
+		  {
+			'x':2029,
+			'y':85.08
+		  },
+		  {
+			'x':2030,
+			'y':87.01
+		  },
+		  {
+			'x':2031,
+			'y':88.63
+		  },
+		  {
+			'x':2032,
+			'y':89.44
+		  },
+		  {
+			'x':2033,
+			'y':90.27
+		  },
+		  {
+			'x':2034,
+			'y':91.07
+		  },
+		  {
+			'x':2035,
+			'y':91.84
+		  },
+		  {
+			'x':2036,
+			'y':92.7
+		  },
+		  {
+			'x':2037,
+			'y':93.47
+		  },
+		  {
+			'x':2038,
+			'y':94.37
+		  },
+		  {
+			'x':2039,
+			'y':95.25
+		  },
+		  {
+			'x':2040,
+			'y':96.18
+		  }
+		];
+		var EdDataDec = [
+		  {
+			'x':2010,
+			'y':59.16
+		  },
+		  {
+			'x':2011,
+			'y':59.16
+		  },
+		  {
+			'x':2012,
+			'y':60.43
+		  },
+		  {
+			'x':2013,
+			'y':60.88
+		  },
+		  {
+			'x':2014,
+			'y':61.33
+		  },
+		  {
+			'x':2015,
+			'y':62
+		  },
+		  {
+			'x':2016,
+			'y':62.96
+		  },
+		  {
+			'x':2017,
+			'y':64.74
+		  },
+		  {
+			'x':2018,
+			'y':66.64
+		  },
+		  {
+			'x':2019,
+			'y':68.11
+		  },
+		  {
+			'x':2020,
+			'y':69.74
+		  },
+		  {
+			'x':2021,
+			'y':71.31
+		  },
+		  {
+			'x':2022,
+			'y':72.76
+		  },
+		  {
+			'x':2023,
+			'y':74.26
+		  },
+		  {
+			'x':2024,
+			'y':75.89
+		  },
+		  {
+			'x':2025,
+			'y':77.53
+		  },
+		  {
+			'x':2026,
+			'y':79.33
+		  },
+		  {
+			'x':2027,
+			'y':81.25
+		  },
+		  {
+			'x':2028,
+			'y':83.1
+		  },
+		  {
+			'x':2029,
+			'y':84.98
+		  },
+		  {
+			'x':2030,
+			'y':86.83
+		  },
+		  {
+			'x':2031,
+			'y':88.37
+		  },
+		  {
+			'x':2032,
+			'y':89.08
+		  },
+		  {
+			'x':2033,
+			'y':89.81
+		  },
+		  {
+			'x':2034,
+			'y':90.41
+		  },
+		  {
+			'x':2035,
+			'y':90.96
+		  },
+		  {
+			'x':2036,
+			'y':91.7
+		  },
+		  {
+			'x':2037,
+			'y':92.34
+		  },
+		  {
+			'x':2038,
+			'y':93.14
+		  },
+		  {
+			'x':2039,
+			'y':93.87
+		  },
+		  {
+			'x':2040,
+			'y':94.7
+		  }
+		];
+	
+		
+	
+    var EdVis = d3.select('#EdVisualisation'), WIDTH = 500, HEIGHT = 250, MARGINS = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 60
+        }, xRange = d3.scale.linear().range([
+            MARGINS.left,
+            WIDTH - MARGINS.right
+        ]).domain([
+            d3.min(EdDataInc, function (d) {
+                return d.x;
+            }),
+            d3.max(EdDataDec, function (d) {
+                return d.x;
+            })
+        ]), EdyRange = d3.scale.linear().range([
+            HEIGHT - MARGINS.top,
+            MARGINS.bottom
+        ]).domain([
+            d3.min(EdDataInc, function (d) {
+                return d.y;
+            }),
+            d3.max(EdDataDec, function (d) {
+                return d.y;
+            })
+        ]), xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickFormat(d3.format("d")).tickSubdivide(true), yAxis = d3.svg.axis().scale(EdyRange).tickSize(5).orient('left').tickSubdivide(true);
+    EdVis.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis).style("fill", "white");
+    EdVis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis).style("fill", "white");
+    
+	var EdLineFunc = d3.svg.line().x(function (d) {
+        return xRange(d.x);
+    }).y(function (d) {
+        return EdyRange(d.y);
+    }).interpolate('linear');
+	
+	
+    //var LineGraph = vis.append('svg:path').attr('d', lineFunc(lineData1)).attr('stroke', '#ff7f00').attr('stroke-width', 2).attr('fill', 'none').attr('class','MyLine');
+	var EdGraphIncrease = EdVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","Education Survival Rates Increased 15%");
+	var EdGraphCurr = EdVis.append('svg:path')
+	.attr("data-legend-color","#ff7f00")
+	.attr("data-legend","Current TFR");
+	var EdGraphDecrease = EdVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","Slow TFR Decline"); 
+	
+	EdGraphCurr.transition().duration(1000).ease("linear").attr("d", EdLineFunc(EdDataCurr)).attrTween('d', EdpathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	EdGraphDecrease.transition().duration(1000).ease("linear").attr("d", EdLineFunc(EdDataInc)).attrTween('d', EdpathTween2).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
+	EdGraphIncrease.transition().duration(1000).ease("linear").attr("d", EdLineFunc(EdDataDec)).attrTween('d', EdpathTween3).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
+	
+	//var svg = d3.select("body").append("svg"); 
+	var EdLegend = EdSvg.append("g")
+	.attr("class","legend")
+  .attr("transform","translate(75,35)")
+  .style("font-size","12px")
+  .call(d3.legend);
+  
+  
+	
+	 function EdpathTween() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, EdDataCurr.length + 1));
+        return function(t) {
+            return EdLineFunc(EdDataCurr.slice(0, interpolate(t)));
+        };
+    }
+		 function EdpathTween2() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, EdDataDec.length + 1));
+        return function(t) {
+            return EdLineFunc(EdDataDec.slice(0, interpolate(t)));
+        };
+    }
+		 function EdpathTween3() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, EdDataInc.length + 1));
+        return function(t) {
+            return EdLineFunc(EdDataInc.slice(0, interpolate(t)));
+        };
+    }
+
+	
+	function ShowFutureEdLine(FutScen){
+	if (FutScen == "Inc"){
+	   EdGraphIncrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");
+	   EdGraphIncrease.transition().duration(2000).ease("linear").attr("d", EdLineFunc(EdDataInc)).attrTween('d', EdpathTween3).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   EdGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   EdGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
+	   EdLegend.call(d3.legend); 
+	   
+	}
+	if (FutScen == "Curr"){
+	   EdGraphCurr.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");;
+	   EdGraphCurr.transition().duration(1000).ease("linear").attr("d", EdLineFunc(EdDataCurr)).attrTween('d', EdpathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   EdGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
+	   EdGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   EdLegend.call(d3.legend);
+	}
+	if (FutScen == "Dec"){
+	   EdGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   EdGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
+	   EdGraphDecrease.transition().duration(1000).ease("linear").attr("d", EdLineFunc(EdDataInc)).attrTween('d', EdpathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   EdGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   EdLegend.call(d3.legend);
+	}
+	}
+	
+	//------------------------ END EDUCATION GRAPH --------------------------------------------
+	
+	
+			//------------------------ START MALNUTRITION GRAPH -------------------------------------------
+	
+	
+		
+var MlNutSvg = d3.select("#MlNutChartDiv").append("svg")
+    .attr("width", 500)
+    .attr("height", 250)
+	.attr("id", "MlNutVisualisation");
+	
+	var MlNutDataCurr = [
+		  {
+			'x':2010,
+			'y':34.6
+		  },
+		  {
+			'x':2011,
+			'y':33.74
+		  },
+		  {
+			'x':2012,
+			'y':33.62
+		  },
+		  {
+			'x':2013,
+			'y':33.68
+		  },
+		  {
+			'x':2014,
+			'y':33.33
+		  },
+		  {
+			'x':2015,
+			'y':32.98
+		  },
+		  {
+			'x':2016,
+			'y':32.63
+		  },
+		  {
+			'x':2017,
+			'y':32.26
+		  },
+		  {
+			'x':2018,
+			'y':31.86
+		  },
+		  {
+			'x':2019,
+			'y':31.45
+		  },
+		  {
+			'x':2020,
+			'y':31.01
+		  },
+		  {
+			'x':2021,
+			'y':30.57
+		  },
+		  {
+			'x':2022,
+			'y':30.01
+		  },
+		  {
+			'x':2023,
+			'y':29.44
+		  },
+		  {
+			'x':2024,
+			'y':28.89
+		  },
+		  {
+			'x':2025,
+			'y':28.39
+		  },
+		  {
+			'x':2026,
+			'y':28
+		  },
+		  {
+			'x':2027,
+			'y':27.65
+		  },
+		  {
+			'x':2028,
+			'y':27.34
+		  },
+		  {
+			'x':2029,
+			'y':27.07
+		  },
+		  {
+			'x':2030,
+			'y':26.84
+		  },
+		  {
+			'x':2031,
+			'y':26.63
+		  },
+		  {
+			'x':2032,
+			'y':26.43
+		  },
+		  {
+			'x':2033,
+			'y':26.18
+		  },
+		  {
+			'x':2034,
+			'y':25.91
+		  },
+		  {
+			'x':2035,
+			'y':25.57
+		  },
+		  {
+			'x':2036,
+			'y':25.19
+		  },
+		  {
+			'x':2037,
+			'y':24.75
+		  },
+		  {
+			'x':2038,
+			'y':24.27
+		  },
+		  {
+			'x':2039,
+			'y':23.76
+		  },
+		  {
+			'x':2040,
+			'y':23.21
+		  }
+		];
+	
+	
+				var MlNutDataInc = [
+		  {
+			"x":2010,
+			"y":34.6
+		  },
+		  {
+			"x":2011,
+			"y":33.74
+		  },
+		  {
+			"x":2012,
+			"y":33.62
+		  },
+		  {
+			"x":2013,
+			"y":33.68
+		  },
+		  {
+			"x":2014,
+			"y":33.33
+		  },
+		  {
+			"x":2015,
+			"y":32.98
+		  },
+		  {
+			"x":2016,
+			"y":32.63
+		  },
+		  {
+			"x":2017,
+			"y":32.13
+		  },
+		  {
+			"x":2018,
+			"y":31.63
+		  },
+		  {
+			"x":2019,
+			"y":31.13
+		  },
+		  {
+			"x":2020,
+			"y":30.62
+		  },
+		  {
+			"x":2021,
+			"y":30.11
+		  },
+		  {
+			"x":2022,
+			"y":29.55
+		  },
+		  {
+			"x":2023,
+			"y":28.98
+		  },
+		  {
+			"x":2024,
+			"y":28.39
+		  },
+		  {
+			"x":2025,
+			"y":27.86
+		  },
+		  {
+			"x":2026,
+			"y":27.41
+		  },
+		  {
+			"x":2027,
+			"y":27
+		  },
+		  {
+			"x":2028,
+			"y":26.62
+		  },
+		  {
+			"x":2029,
+			"y":26.28
+		  },
+		  {
+			"x":2030,
+			"y":25.99
+		  },
+		  {
+			"x":2031,
+			"y":25.74
+		  },
+		  {
+			"x":2032,
+			"y":25.49
+		  },
+		  {
+			"x":2033,
+			"y":25.22
+		  },
+		  {
+			"x":2034,
+			"y":24.89
+		  },
+		  {
+			"x":2035,
+			"y":24.49
+		  },
+		  {
+			"x":2036,
+			"y":24.04
+		  },
+		  {
+			"x":2037,
+			"y":23.53
+		  },
+		  {
+			"x":2038,
+			"y":22.97
+		  },
+		  {
+			"x":2039,
+			"y":22.38
+		  },
+		  {
+			"x":2040,
+			"y":21.75
+		  }
+		];
+	
+	var MlNutDataDec = [
+		  {
+			"x":2010,
+			"y":34.6
+		  },
+		  {
+			"x":2011,
+			"y":33.74
+		  },
+		  {
+			"x":2012,
+			"y":33.62
+		  },
+		  {
+			"x":2013,
+			"y":33.68
+		  },
+		  {
+			"x":2014,
+			"y":33.33
+		  },
+		  {
+			"x":2015,
+			"y":32.99
+		  },
+		  {
+			"x":2016,
+			"y":32.65
+		  },
+		  {
+			"x":2017,
+			"y":32.17
+		  },
+		  {
+			"x":2018,
+			"y":31.68
+		  },
+		  {
+			"x":2019,
+			"y":31.19
+		  },
+		  {
+			"x":2020,
+			"y":30.71
+		  },
+		  {
+			"x":2021,
+			"y":30.21
+		  },
+		  {
+			"x":2022,
+			"y":29.67
+		  },
+		  {
+			"x":2023,
+			"y":29.12
+		  },
+		  {
+			"x":2024,
+			"y":28.55
+		  },
+		  {
+			"x":2025,
+			"y":28.06
+		  },
+		  {
+			"x":2026,
+			"y":27.63
+		  },
+		  {
+			"x":2027,
+			"y":27.25
+		  },
+		  {
+			"x":2028,
+			"y":26.9
+		  },
+		  {
+			"x":2029,
+			"y":26.59
+		  },
+		  {
+			"x":2030,
+			"y":26.33
+		  },
+		  {
+			"x":2031,
+			"y":26.11
+		  },
+		  {
+			"x":2032,
+			"y":25.89
+		  },
+		  {
+			"x":2033,
+			"y":25.65
+		  },
+		  {
+			"x":2034,
+			"y":25.35
+		  },
+		  {
+			"x":2035,
+			"y":24.98
+		  },
+		  {
+			"x":2036,
+			"y":24.56
+		  },
+		  {
+			"x":2037,
+			"y":24.07
+		  },
+		  {
+			"x":2038,
+			"y":23.54
+		  },
+		  {
+			"x":2039,
+			"y":22.96
+		  },
+		  {
+			"x":2040,
+			"y":22.35
+		  }
+		];
+	
+    var MlNutVis = d3.select('#MlNutVisualisation'), WIDTH = 500, HEIGHT = 250, MARGINS = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 60
+        }, xRange = d3.scale.linear().range([
+            MARGINS.left,
+            WIDTH - MARGINS.right
+        ]).domain([
+            d3.min(MlNutDataDec, function (d) {
+                return d.x;
+            }),
+            d3.max(MlNutDataInc, function (d) {
+                return d.x;
+            })
+        ]), MlNutyRange = d3.scale.linear().range([
+            HEIGHT - MARGINS.top,
+            MARGINS.bottom
+        ]).domain([
+            d3.min(MlNutDataInc, function (d) {
+                return d.y;
+            }),
+            d3.max(MlNutDataInc, function (d) {
+                return d.y;
+            })
+        ]), xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickFormat(d3.format("d")).tickSubdivide(true), yAxis = d3.svg.axis().scale(MlNutyRange).tickSize(5).orient('left').tickSubdivide(true);
+    MlNutVis.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis).style("fill", "white");
+    MlNutVis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis).style("fill", "white");
+    
+	var MlNutLineFunc = d3.svg.line().x(function (d) {
+        return xRange(d.x);
+    }).y(function (d) {
+        return MlNutyRange(d.y);
+    }).interpolate('linear');
+	
+	
+    //var LineGraph = vis.append('svg:path').attr('d', lineFunc(lineData1)).attr('stroke', '#ff7f00').attr('stroke-width', 2).attr('fill', 'none').attr('class','MyLine');
+	var MlNutGraphIncrease = MlNutVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","Agricultural Yields Increased 30%");
+	var MlNutGraphCurr = MlNutVis.append('svg:path')
+	.attr("data-legend-color","#ff7f00")
+	.attr("data-legend","Current TFR Decline");
+	var MlNutGraphDecrease = MlNutVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","Slow TFR Decline and Ag Increase"); 
+	
+	MlNutGraphCurr.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataCurr)).attrTween('d', MlNutpathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	MlNutGraphDecrease.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataInc)).attrTween('d', MlNutpathTween2).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
+	MlNutGraphIncrease.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataDec)).attrTween('d', MlNutpathTween3).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
+	
+	//var svg = d3.select("body").append("svg"); 
+	var MlNutLegend = MlNutSvg.append("g")
+	.attr("class","legend")
+  .attr("transform","translate(75,35)")
+  .style("font-size","12px")
+  .call(d3.legend);
+  
+  
+	
+	 function MlNutpathTween() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, MlNutDataCurr.length + 1));
+        return function(t) {
+            return MlNutLineFunc(MlNutDataCurr.slice(0, interpolate(t)));
+        };
+    }
+		 function MlNutpathTween2() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, MlNutDataDec.length + 1));
+        return function(t) {
+            return MlNutLineFunc(MlNutDataDec.slice(0, interpolate(t)));
+        };
+    }
+		 function MlNutpathTween3() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, MlNutDataInc.length + 1));
+        return function(t) {
+            return MlNutLineFunc(MlNutDataInc.slice(0, interpolate(t)));
+        };
+    }
+
+	
+	function ShowFutureMlNutLine(FutScen){
+	if (FutScen == "Inc"){
+	   MlNutGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   MlNutGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
+	   MlNutGraphIncrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");
+	   MlNutGraphIncrease.transition().duration(2000).ease("linear").attr("d", MlNutLineFunc(MlNutDataInc)).attrTween('d', MlNutpathTween3).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   MlNutLegend.call(d3.legend); 
+	   
+	}
+	if (FutScen == "Curr"){
+	   MlNutGraphCurr.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");;
+	   MlNutGraphCurr.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataCurr)).attrTween('d', MlNutpathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   MlNutGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
+	   MlNutGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   MlNutLegend.call(d3.legend);
+	}
+	if (FutScen == "Dec"){
+	   MlNutGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   MlNutGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
+	   MlNutGraphDecrease.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataInc)).attrTween('d', MlNutpathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   MlNutGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   MlNutLegend.call(d3.legend);
+	}
+	}
+	//------------------------ END MALNUTRITION GRAPH --------------------------------------------
+	
+	
+//------------------------ START Urban POP GRAPH -------------------------------------------
+	
+	
+		
+var UrbPopSvg = d3.select("#PopPyramidDiv").append("svg")
+    .attr("width", 500)
+    .attr("height", 250)
+	.attr("id", "UrbPopVisualisation");
+	
+	var UrbPopDataCurr = [
+		{
+			"x":2010,
+			"y":5.152
+		  },
+		  {
+			"x":2011,
+			"y":5.408
+		  },
+		  {
+			"x":2012,
+			"y":5.678
+		  },
+		  {
+			"x":2013,
+			"y":5.961
+		  },
+		  {
+			"x":2014,
+			"y":6.257
+		  },
+		  {
+			"x":2015,
+			"y":6.568
+		  },
+		  {
+			"x":2016,
+			"y":6.893
+		  },
+		  {
+			"x":2017,
+			"y":7.234
+		  },
+		  {
+			"x":2018,
+			"y":7.591
+		  },
+		  {
+			"x":2019,
+			"y":7.963
+		  },
+		  {
+			"x":2020,
+			"y":8.353
+		  },
+		  {
+			"x":2021,
+			"y":8.76
+		  },
+		  {
+			"x":2022,
+			"y":9.185
+		  },
+		  {
+			"x":2023,
+			"y":9.628
+		  },
+		  {
+			"x":2024,
+			"y":10.09
+		  },
+		  {
+			"x":2025,
+			"y":10.57
+		  },
+		  {
+			"x":2026,
+			"y":11.08
+		  },
+		  {
+			"x":2027,
+			"y":11.6
+		  },
+		  {
+			"x":2028,
+			"y":12.14
+		  },
+		  {
+			"x":2029,
+			"y":12.71
+		  },
+		  {
+			"x":2030,
+			"y":13.3
+		  },
+		  {
+			"x":2031,
+			"y":13.91
+		  },
+		  {
+			"x":2032,
+			"y":14.54
+		  },
+		  {
+			"x":2033,
+			"y":15.2
+		  },
+		  {
+			"x":2034,
+			"y":15.88
+		  },
+		  {
+			"x":2035,
+			"y":16.58
+		  },
+		  {
+			"x":2036,
+			"y":17.31
+		  },
+		  {
+			"x":2037,
+			"y":18.07
+		  },
+		  {
+			"x":2038,
+			"y":18.85
+		  },
+		  {
+			"x":2039,
+			"y":19.65
+		  },
+		  {
+			"x":2040,
+			"y":20.48
+		  }
+		];
+	
+	
+		var UrbPopDataInc = [
+		  {
+			"x":2010,
+			"y":5.152
+		  },
+		  {
+			"x":2011,
+			"y":5.408
+		  },
+		  {
+			"x":2012,
+			"y":5.678
+		  },
+		  {
+			"x":2013,
+			"y":5.961
+		  },
+		  {
+			"x":2014,
+			"y":6.257
+		  },
+		  {
+			"x":2015,
+			"y":6.568
+		  },
+		  {
+			"x":2016,
+			"y":6.893
+		  },
+		  {
+			"x":2017,
+			"y":7.234
+		  },
+		  {
+			"x":2018,
+			"y":7.591
+		  },
+		  {
+			"x":2019,
+			"y":7.963
+		  },
+		  {
+			"x":2020,
+			"y":8.353
+		  },
+		  {
+			"x":2021,
+			"y":8.76
+		  },
+		  {
+			"x":2022,
+			"y":9.185
+		  },
+		  {
+			"x":2023,
+			"y":9.628
+		  },
+		  {
+			"x":2024,
+			"y":10.09
+		  },
+		  {
+			"x":2025,
+			"y":10.57
+		  },
+		  {
+			"x":2026,
+			"y":11.08
+		  },
+		  {
+			"x":2027,
+			"y":11.6
+		  },
+		  {
+			"x":2028,
+			"y":12.14
+		  },
+		  {
+			"x":2029,
+			"y":12.71
+		  },
+		  {
+			"x":2030,
+			"y":13.3
+		  },
+		  {
+			"x":2031,
+			"y":13.91
+		  },
+		  {
+			"x":2032,
+			"y":14.54
+		  },
+		  {
+			"x":2033,
+			"y":15.2
+		  },
+		  {
+			"x":2034,
+			"y":15.88
+		  },
+		  {
+			"x":2035,
+			"y":16.58
+		  },
+		  {
+			"x":2036,
+			"y":17.31
+		  },
+		  {
+			"x":2037,
+			"y":18.07
+		  },
+		  {
+			"x":2038,
+			"y":18.85
+		  },
+		  {
+			"x":2039,
+			"y":19.65
+		  },
+		  {
+			"x":2040,
+			"y":20.48
+		  }
+		];
+	
+	var UrbPopDataDec = [
+		  {
+			"x":2010,
+			"y":5.152
+		  },
+		  {
+			"x":2011,
+			"y":5.408
+		  },
+		  {
+			"x":2012,
+			"y":5.678
+		  },
+		  {
+			"x":2013,
+			"y":5.961
+		  },
+		  {
+			"x":2014,
+			"y":6.259
+		  },
+		  {
+			"x":2015,
+			"y":6.572
+		  },
+		  {
+			"x":2016,
+			"y":6.901
+		  },
+		  {
+			"x":2017,
+			"y":7.246
+		  },
+		  {
+			"x":2018,
+			"y":7.608
+		  },
+		  {
+			"x":2019,
+			"y":7.988
+		  },
+		  {
+			"x":2020,
+			"y":8.386
+		  },
+		  {
+			"x":2021,
+			"y":8.803
+		  },
+		  {
+			"x":2022,
+			"y":9.239
+		  },
+		  {
+			"x":2023,
+			"y":9.696
+		  },
+		  {
+			"x":2024,
+			"y":10.17
+		  },
+		  {
+			"x":2025,
+			"y":10.67
+		  },
+		  {
+			"x":2026,
+			"y":11.2
+		  },
+		  {
+			"x":2027,
+			"y":11.74
+		  },
+		  {
+			"x":2028,
+			"y":12.31
+		  },
+		  {
+			"x":2029,
+			"y":12.9
+		  },
+		  {
+			"x":2030,
+			"y":13.52
+		  },
+		  {
+			"x":2031,
+			"y":14.17
+		  },
+		  {
+			"x":2032,
+			"y":14.84
+		  },
+		  {
+			"x":2033,
+			"y":15.54
+		  },
+		  {
+			"x":2034,
+			"y":16.27
+		  },
+		  {
+			"x":2035,
+			"y":17.03
+		  },
+		  {
+			"x":2036,
+			"y":17.81
+		  },
+		  {
+			"x":2037,
+			"y":18.63
+		  },
+		  {
+			"x":2038,
+			"y":19.48
+		  },
+		  {
+			"x":2039,
+			"y":20.36
+		  },
+		  {
+			"x":2040,
+			"y":21.27
+		  }
+		];
+	
+    var UrbPopVis = d3.select('#UrbPopVisualisation'), WIDTH = 500, HEIGHT = 250, MARGINS = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 60
+        }, xRange = d3.scale.linear().range([
+            MARGINS.left,
+            WIDTH - MARGINS.right
+        ]).domain([
+            d3.min(UrbPopDataDec, function (d) {
+                return d.x;
+            }),
+            d3.max(UrbPopDataInc, function (d) {
+                return d.x;
+            })
+        ]), UrbPopyRange = d3.scale.linear().range([
+            HEIGHT - MARGINS.top,
+            MARGINS.bottom
+        ]).domain([
+            d3.min(UrbPopDataDec, function (d) {
+                return d.y;
+            }),
+            d3.max(UrbPopDataInc, function (d) {
+                return d.y;
+            })
+        ]), xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickFormat(d3.format("d")).tickSubdivide(true), yAxis = d3.svg.axis().scale(UrbPopyRange).tickSize(5).orient('left').tickSubdivide(true);
+    UrbPopVis.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis).style("fill", "white");
+    UrbPopVis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis).style("fill", "white");
+    
+	var UrbPopLineFunc = d3.svg.line().x(function (d) {
+        return xRange(d.x);
+    }).y(function (d) {
+        return UrbPopyRange(d.y);
+    }).interpolate('linear');
+	
+	
+    //var LineGraph = vis.append('svg:path').attr('d', lineFunc(lineData1)).attr('stroke', '#ff7f00').attr('stroke-width', 2).attr('fill', 'none').attr('class','MyLine');
+	var UrbPopGraphIncrease = UrbPopVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","Current TFR Decline");
+	var UrbPopGraphCurr = UrbPopVis.append('svg:path')
+	.attr("data-legend-color","#ff7f00")
+	.attr("data-legend","Current TFR Decline");
+	var UrbPopGraphDecrease = UrbPopVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","Slow TFR Decline"); 
+	
+	UrbPopGraphCurr.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataCurr)).attrTween('d', UrbPoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	UrbPopGraphDecrease.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataInc)).attrTween('d', UrbPoppathTween2).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
+	UrbPopGraphIncrease.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataDec)).attrTween('d', UrbPoppathTween3).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
+	
+	//var svg = d3.select("body").append("svg"); 
+	var UrbPopLegend = UrbPopSvg.append("g")
+	.attr("class","legend")
+    .attr("transform","translate(75,35)")
+    .style("font-size","12px")
+    .call(d3.legend);
+  
+  
+	
+	 function UrbPoppathTween() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, UrbPopDataCurr.length + 1));
+        return function(t) {
+            return UrbPopLineFunc(UrbPopDataCurr.slice(0, interpolate(t)));
+        };
+    }
+		 function UrbPoppathTween2() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, UrbPopDataDec.length + 1));
+        return function(t) {
+            return UrbPopLineFunc(UrbPopDataDec.slice(0, interpolate(t)));
+        };
+    }
+		 function UrbPoppathTween3() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, UrbPopDataInc.length + 1));
+        return function(t) {
+            return UrbPopLineFunc(UrbPopDataInc.slice(0, interpolate(t)));
+        };
+    }
+
+	
+	function ShowFutureUrbPopLine(FutScen){
+	if (FutScen == "Inc"){
+	   UrbPopGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   UrbPopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
+	   UrbPopGraphIncrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");
+	   UrbPopGraphIncrease.transition().duration(2000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataInc)).attrTween('d', UrbPoppathTween3).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   UrbPopLegend.call(d3.legend); 
+	   
+	}
+	if (FutScen == "Curr"){
+	   UrbPopGraphCurr.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");;
+	   UrbPopGraphCurr.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataCurr)).attrTween('d', UrbPoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   UrbPopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
+	   UrbPopGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   UrbPopLegend.call(d3.legend);
+	}
+	if (FutScen == "Dec"){
+	   UrbPopGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   UrbPopGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
+	   UrbPopGraphDecrease.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataInc)).attrTween('d', UrbPoppathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   UrbPopGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   UrbPopLegend.call(d3.legend);
+	}
+	}
+		//------------------------ END OF OVERALL POPULATION GRAPH -------------------------------------------	
+	
+/*	
+	//---------------------- Beginning of Population Pyramid Chart --------------------------------------
+// SET UP DIMENSIONS
+var w = 500,
+    h = 300;
+    
+// margin.middle is distance from center line to each y-axis
+var PPmargin = {
+  top: 20,
+  right: 20,
+  bottom: 24,
+  left: 20,
+  middle: 28
+};
+    
+// the width of each side of the chart
+var regionWidth = w/2 - PPmargin.middle;
+
+// these are the x-coordinates of the y-axes
+var pointA = regionWidth,
+    pointB = w - regionWidth;
+
+// some contrived data
+var exampleDataDec = [
+  {group: '0-9', male: 1.4, female: 1.4},
+  {group: '10-19', male: 1.1, female: 1.2},
+  {group: '20-29', male: 0.8, female: 0.9},
+  {group: '30-39', male: 0.9, female: 0.9},
+  {group: '40-49', male: 0.7, female: 0.8},
+  {group: '50-59', male: 0.6, female: 0.6},
+  {group: '60-69', male: 0.5, female: 0.5},
+  {group: '70-79', male: 0.4, female: 0.4},
+  {group: '80-89', male: 0.3, female: 0.3},
+  {group: '90-99', male: 0.2, female: 0.2},
+  {group: '100-109', male: 0.1, female: 0.1},
+];
+var exampleDataCurr = [
+  {group: '0-9', male: 1.7, female: 1.8},
+  {group: '10-19', male: 1.3, female: 1.5},
+  {group: '20-29', male: 1.0, female: 1.1},
+  {group: '30-39', male: 0.9, female: 0.9},
+  {group: '40-49', male: 0.7, female: 0.8},
+  {group: '50-59', male: 0.6, female: 0.6},
+  {group: '60-69', male: 0.5, female: 0.5},
+  {group: '70-79', male: 0.4, female: 0.4},
+  {group: '80-89', male: 0.3, female: 0.3},
+  {group: '90-99', male: 0.2, female: 0.2},
+  {group: '100-109', male: 0.1, female: 0.1},
+];
+
+var exampleDataInc = [
+  {group: '0-9', male: 2.1, female: 2.1},
+  {group: '10-19', male: 1.7, female: 1.8},
+  {group: '20-29', male: 1.3, female: 1.4},
+  {group: '30-39', male: 0.9, female: 0.9},
+  {group: '40-49', male: 0.7, female: 0.8},
+  {group: '50-59', male: 0.6, female: 0.6},
+  {group: '60-69', male: 0.5, female: 0.5},
+  {group: '70-79', male: 0.4, female: 0.4},
+  {group: '80-89', male: 0.3, female: 0.3},
+  {group: '90-99', male: 0.2, female: 0.2},
+  {group: '100-109', male: 0.1, female: 0.1},
+];
+
+
+
+
+  
+  
+// CREATE SVG
+var svg = d3.select('#PopPyramidDiv').append('svg')
+  .attr('width', PPmargin.left + w + PPmargin.right)
+  .attr('height', PPmargin.top + h + PPmargin.bottom)
+  // ADD A GROUP FOR THE SPACE WITHIN THE MARGINS
+  .append('g')
+    .attr('transform', translation(PPmargin.left, PPmargin.top));
+
+// find the maximum data value on either side
+//  since this will be shared by both of the x-axes
+var maxValue = Math.max(
+  d3.max(exampleDataInc, function(d) { return d.male; }),
+  d3.max(exampleDataInc, function(d) { return d.female; })
+);
+
+// SET UP SCALES
+  
+// the PPxScale goes from 0 to the width of a region
+//  it will be reversed for the left x-axis
+var PPxScale = d3.scale.linear()
+  .domain([0, maxValue])
+  .range([0, regionWidth])
+  .nice();
+
+var PPxScaleLeft = d3.scale.linear()
+  .domain([0, maxValue])
+  .range([regionWidth, 0]);
+
+var PPxScaleRight = d3.scale.linear()
+  .domain([0, maxValue])
+  .range([0, regionWidth]);
+
+var PPyScale = d3.scale.ordinal()
+  .domain(exampleDataDec.map(function(d) { return d.group; }))
+  .rangeRoundBands([h,0], 0.1);
+
+
+// SET UP AXES
+var yAxisLeft = d3.svg.axis()
+  .scale(PPyScale)
+  .orient('right')
+  .tickSize(4,0)
+  .tickPadding(PPmargin.middle-4);
+
+var yAxisRight = d3.svg.axis()
+  .scale(PPyScale)
+  .orient('left')
+  .tickSize(4,0)
+  .tickFormat('');
+
+var xAxisRight = d3.svg.axis()
+  .scale(PPxScale)
+  .orient('bottom');
+
+var xAxisLeft = d3.svg.axis()
+  // REVERSE THE X-AXIS SCALE ON THE LEFT SIDE BY REVERSING THE RANGE
+  .scale(PPxScale.copy().range([pointA, 0]))
+  .orient('bottom');
+
+// MAKE GROUPS FOR EACH SIDE OF CHART
+// scale(-1,1) is used to reverse the left side so the bars grow left instead of right
+var leftBarGroup = svg.append('g')
+  .attr('transform', translation(pointA, 0) + 'scale(-1,1)');
+var rightBarGroup = svg.append('g')
+  .attr('transform', translation(pointB, 0));
+
+// DRAW AXES
+svg.append('g')
+  .attr('class', 'axis y left')
+  .attr('transform', translation(pointA, 0))
+  .call(yAxisLeft)
+  .selectAll('text')
+  .style('text-anchor', 'middle');
+
+svg.append('g')
+  .attr('class', 'axis y right')
+  .attr('transform', translation(pointB, 0))
+  .call(yAxisRight);
+
+svg.append('g')
+  .attr('class', 'axis x left')
+  .attr('transform', translation(0, h))
+  .call(xAxisLeft);
+
+svg.append('g')
+  .attr('class', 'axis x right')
+  .attr('transform', translation(pointB, h))
+  .call(xAxisRight);
+
+// DRAW BARS
+leftBarGroup.selectAll('.bar.left')
+  .data(exampleDataCurr)
+  .enter().append('rect')
+    .attr('class', 'bar left')
+    .attr('x', 0)
+    .attr('y', function(d) { return PPyScale(d.group); })
+    .attr('width', function(d) { return PPxScale(d.male); })
+    .attr('height', PPyScale.rangeBand());
+
+rightBarGroup.selectAll('.bar.right')
+  .data(exampleDataCurr)
+  .enter().append('rect')
+    .attr('class', 'bar right')
+    .attr('x', 0)
+    .attr('y', function(d) { return PPyScale(d.group); })
+    .attr('width', function(d) { return PPxScale(d.female); })
+    .attr('height', PPyScale.rangeBand());
+
+
+// so sick of string concatenation for translations
+function translation(x,y) {
+  return 'translate(' + x + ',' + y + ')';
+}
+*/
+//---------------------- End of Population Pyramid Chart --------------------------------------
+	
+	
+</script>
+<script src='http://codepen.io/assets/editor/live/css_live_reload_init.js'></script><br>
+
+</body></html>
