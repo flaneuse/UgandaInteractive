@@ -49,45 +49,33 @@ h2{
   fill: firebrick;
   }
  #PopChartDiv{
- position: fixed;
+  position: fixed;
+  width: 520px;
+ height: 270px; 
+  left: 540px;
+ top: 110px;
+ 
+ }
+ #PopPyramidDiv{
+position: fixed;
  width: 520px;
  height: 270px; 
  left: 20px;
  top: 110px;
  }
- #PopPyramidDiv{
- position: fixed;
-  width: 520px;
- height: 270px; 
-  left: 540px;
- top: 110px;
- }
- #EdChartDiv{
- position: fixed;
-  width: 520px;
- height: 270px; 
-  left: 20px;
- top: 500px;
- }
- #MlNutChartDiv{
- position: fixed;
-  width: 520px;
- height: 270px; 
-  left: 540px;
- top: 500px;
- }
+
   
        </style></head><body>
 	   
 	   
 
-<b><input type="radio" name="fr" value="Current" checked="checked" onclick="changeVals('Curr');">Current Rates <input type="radio" name="fr" value="Dec" onclick="changeVals('Dec');">Slow TFR Decline </b>
+<b><input type="radio" name="fr" value="Current" checked="checked" onclick="changeVals('Curr');">Current Rates <input type="radio" name="fr" value="Dec" onclick="changeVals('Dec');">Slow Total Fertility Rate Decline </b>
 	   
 	   
-	   <div id="PopChartDiv" class="chartTitle">Rural Population</div>
+	   <div id="PopPyramidDiv" class="chartTitle">Total Fertility Rate</div>
 	   
 	   
-	   <div id="PopPyramidDiv" class="chartTitle">Urban Population</div>
+	   <div id="PopChartDiv" class="chartTitle">Total Population</div>
 	   
 	   
 
@@ -562,12 +550,7 @@ var PopSvg = d3.select("#PopChartDiv").append("svg")
 	PopGraphCurr.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataCurr)).attrTween('d', PoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	PopGraphDecrease.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataDec)).attrTween('d', PoppathTween2).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
 	
-	//var svg = d3.select("body").append("svg"); 
-	var PopLegend = PopSvg.append("g")
-	.attr("class","legend")
-  .attr("transform","translate(75,35)")
-  .style("font-size","12px")
-  .call(d3.legend);
+
   
   
 	
@@ -595,14 +578,14 @@ var PopSvg = d3.select("#PopChartDiv").append("svg")
 	   PopGraphCurr.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataCurr)).attrTween('d', PoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	   PopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
 	   
-	   PopLegend.call(d3.legend);
+	   
 	}
 	if (FutScen == "Dec"){
 	   PopGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
 	   PopGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
 	   PopGraphDecrease.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataDec)).attrTween('d', PoppathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	   
-	   PopLegend.call(d3.legend);
+	   
 	}
 	}
 	
@@ -896,7 +879,7 @@ var UrbPopSvg = d3.select("#PopPyramidDiv").append("svg")
             HEIGHT - MARGINS.top,
             MARGINS.bottom
         ]).domain([
-            d3.min(UrbPopDataDec, function (d) {
+            d3.min(UrbPopDataCurr, function (d) {
                 return d.y;
             }),
             d3.max(UrbPopDataDec, function (d) {
@@ -926,11 +909,7 @@ var UrbPopSvg = d3.select("#PopPyramidDiv").append("svg")
 	
 	
 	//var svg = d3.select("body").append("svg"); 
-	var UrbPopLegend = UrbPopSvg.append("g")
-	.attr("class","legend")
-    .attr("transform","translate(75,35)")
-    .style("font-size","12px")
-    .call(d3.legend);
+	
   
   
 	
@@ -958,15 +937,15 @@ var UrbPopSvg = d3.select("#PopPyramidDiv").append("svg")
 	   UrbPopGraphCurr.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");;
 	   UrbPopGraphCurr.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataCurr)).attrTween('d', UrbPoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	   UrbPopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
-	   UrbPopGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
-	   UrbPopLegend.call(d3.legend);
+	   
+	   
 	}
 	if (FutScen == "Dec"){
 	   UrbPopGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
 	   UrbPopGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
 	   UrbPopGraphDecrease.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataDec)).attrTween('d', UrbPoppathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
-	   UrbPopGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
-	   UrbPopLegend.call(d3.legend);
+	   
+	   
 	}
 	}
 		//------------------------ END OF OVERALL POPULATION GRAPH -------------------------------------------	

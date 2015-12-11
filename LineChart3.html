@@ -1,0 +1,1493 @@
+
+<!DOCTYPE html><html class=''>
+<head><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="canonical" href="http://codepen.io/jay3dec/pen/glLxK/" />
+
+
+<style class="cp-pen-styles">        .axis path, .axis line
+        {
+            fill: none;
+            stroke: white;
+            shape-rendering: crispEdges;
+        }
+        
+        .axis text
+        {
+            font-family: 'Arial';
+            font-size: 13px;
+        }
+        .tick
+        {
+            stroke-dasharray: 1, 2;
+        }
+       
+		.legend rect {
+			fill:white;
+			stroke:black;
+			opacity:0.8;
+			width:150px;
+			height:150px;}
+		.chartTitle{
+			color: white;
+		}
+			
+		<style id="jsbin-css">
+svg {
+  border: 1px solid #ccc;
+}
+h2{
+	text-align: center;
+}
+
+
+
+.bar {
+  fill-opacity: 0.5;
+}
+.bar.left {
+  fill: steelblue;
+}
+.bar.right {
+  fill: firebrick;
+  }
+ #PopChartDiv{
+ position: fixed;
+ width: 520px;
+ height: 270px; 
+ left: 20px;
+ top: 110px;
+ }
+ #PopPyramidDiv{
+ position: fixed;
+  width: 520px;
+ height: 270px; 
+  left: 20px;
+ top: 500px
+ }
+ #EdChartDiv{
+ position: fixed;
+  width: 520px;
+ height: 270px; 
+  left: 20px;
+ top: 500px;
+ }
+ #MlNutChartDiv{
+ position: fixed;
+  width: 520px;
+ height: 270px; 
+  left: 700px;
+ top: 300px;
+ }
+  
+       </style></head><body>
+	   
+	   
+
+<b><input type="radio" name="fr" value="Current" checked="checked" onclick="changeVals('Curr');">Current Rates <input type="radio" name="fr" value="Dec" onclick="changeVals('Dec');">Slow Total Fertility Rate Decline <input type="radio" name="fr" value="5Inc" onclick="changeVals('Inc');"> 30% Increase in Agricultural Yields </b>
+	   
+	   
+	   <div id="PopChartDiv" class="chartTitle">Agricultural Yield</div>
+	   
+	   
+	   <div id="PopPyramidDiv" class="chartTitle">Total Fertility Rate</div>
+	   
+	   
+	   
+	   
+	   
+	   <div id="MlNutChartDiv" class="chartTitle">Malnutrition</div>
+
+<script src='http://assets.codepen.io/assets/common/stopExecutionOnTimeout.js?t=1'></script><script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script src='http://d3js.org/d3.v3.min.js'></script>
+<script src="http://bl.ocks.org/ZJONSSON/raw/3918369/d3.legend.js"></script>
+<script>
+//InitChart();
+//function InitChart() {
+
+
+// ------------------- Beginning of chart for Agricultural Yield -------------------------
+function changeVals(ValDir){
+ShowFuturePopLine(ValDir);
+ShowFutureMlNutLine(ValDir);
+ShowFutureUrbPopLine(ValDir);
+
+leftBarGroup.selectAll('.bar.left').remove(); 
+rightBarGroup.selectAll('.bar.right').remove(); 
+
+//alert(chng); 
+	
+leftBarGroup.selectAll('.bar.left')
+  .data(eval("exampleData"+ValDir))
+  .enter().append('rect')
+    .attr('class', 'bar left')
+    .attr('x', 0)
+    .attr('y', function(d) { return PPyScale(d.group); })
+   .attr('width', function(d) { return PPxScale(d.male); })
+    .attr('height', PPyScale.rangeBand());
+
+rightBarGroup.selectAll('.bar.right')
+  .data(eval("exampleData"+ValDir))
+  .enter().append('rect')
+    .attr('class', 'bar right')
+    .attr('x', 0)
+    .attr('y', function(d) { return PPyScale(d.group); })
+    .attr('width', function(d) { return PPxScale(d.female); })
+    .attr('height', PPyScale.rangeBand());
+	
+}
+
+var PopSvg = d3.select("#PopChartDiv").append("svg")
+    .attr("width", 500)
+    .attr("height", 250)
+	.attr("id", "PopVisualisation");
+	
+	var PopDataCurr = [
+  {
+    "x":2010,
+    "y":0.707
+  },
+  {
+    "x":2011,
+    "y":0.701
+  },
+  {
+    "x":2012,
+    "y":0.696
+  },
+  {
+    "x":2013,
+    "y":0.693
+  },
+  {
+    "x":2014,
+    "y":0.685
+  },
+  {
+    "x":2015,
+    "y":0.675
+  },
+  {
+    "x":2016,
+    "y":0.664
+  },
+  {
+    "x":2017,
+    "y":0.652
+  },
+  {
+    "x":2018,
+    "y":0.64
+  },
+  {
+    "x":2019,
+    "y":0.628
+  },
+  {
+    "x":2020,
+    "y":0.617
+  },
+  {
+    "x":2021,
+    "y":0.606
+  },
+  {
+    "x":2022,
+    "y":0.597
+  },
+  {
+    "x":2023,
+    "y":0.59
+  },
+  {
+    "x":2024,
+    "y":0.585
+  },
+  {
+    "x":2025,
+    "y":0.583
+  },
+  {
+    "x":2026,
+    "y":0.581
+  },
+  {
+    "x":2027,
+    "y":0.577
+  },
+  {
+    "x":2028,
+    "y":0.575
+  },
+  {
+    "x":2029,
+    "y":0.573
+  },
+  {
+    "x":2030,
+    "y":0.571
+  },
+  {
+    "x":2031,
+    "y":0.568
+  },
+  {
+    "x":2032,
+    "y":0.564
+  },
+  {
+    "x":2033,
+    "y":0.561
+  },
+  {
+    "x":2034,
+    "y":0.557
+  },
+  {
+    "x":2035,
+    "y":0.551
+  },
+  {
+    "x":2036,
+    "y":0.545
+  },
+  {
+    "x":2037,
+    "y":0.538
+  },
+  {
+    "x":2038,
+    "y":0.531
+  },
+  {
+    "x":2039,
+    "y":0.525
+  },
+  {
+    "x":2040,
+    "y":0.52
+  }
+];
+	
+		var PopDataInc = [
+  {
+    "x":2010,
+    "y":0.707
+  },
+  {
+    "x":2011,
+    "y":0.701
+  },
+  {
+    "x":2012,
+    "y":0.696
+  },
+  {
+    "x":2013,
+    "y":0.693
+  },
+  {
+    "x":2014,
+    "y":0.685
+  },
+  {
+    "x":2015,
+    "y":0.675
+  },
+  {
+    "x":2016,
+    "y":0.664
+  },
+  {
+    "x":2017,
+    "y":0.704
+  },
+  {
+    "x":2018,
+    "y":0.737
+  },
+  {
+    "x":2019,
+    "y":0.763
+  },
+  {
+    "x":2020,
+    "y":0.785
+  },
+  {
+    "x":2021,
+    "y":0.806
+  },
+  {
+    "x":2022,
+    "y":0.78
+  },
+  {
+    "x":2023,
+    "y":0.76
+  },
+  {
+    "x":2024,
+    "y":0.75
+  },
+  {
+    "x":2025,
+    "y":0.745
+  },
+  {
+    "x":2026,
+    "y":0.746
+  },
+  {
+    "x":2027,
+    "y":0.748
+  },
+  {
+    "x":2028,
+    "y":0.751
+  },
+  {
+    "x":2029,
+    "y":0.753
+  },
+  {
+    "x":2030,
+    "y":0.754
+  },
+  {
+    "x":2031,
+    "y":0.746
+  },
+  {
+    "x":2032,
+    "y":0.739
+  },
+  {
+    "x":2033,
+    "y":0.733
+  },
+  {
+    "x":2034,
+    "y":0.725
+  },
+  {
+    "x":2035,
+    "y":0.717
+  },
+  {
+    "x":2036,
+    "y":0.707
+  },
+  {
+    "x":2037,
+    "y":0.698
+  },
+  {
+    "x":2038,
+    "y":0.689
+  },
+  {
+    "x":2039,
+    "y":0.681
+  },
+  {
+    "x":2040,
+    "y":0.674
+  }
+];
+	
+		var PopDataDec = [
+  {
+    "x":2010,
+    "y":0.707
+  },
+  {
+    "x":2011,
+    "y":0.701
+  },
+  {
+    "x":2012,
+    "y":0.696
+  },
+  {
+    "x":2013,
+    "y":0.693
+  },
+  {
+    "x":2014,
+    "y":0.685
+  },
+  {
+    "x":2015,
+    "y":0.674
+  },
+  {
+    "x":2016,
+    "y":0.662
+  },
+  {
+    "x":2017,
+    "y":0.701
+  },
+  {
+    "x":2018,
+    "y":0.733
+  },
+  {
+    "x":2019,
+    "y":0.757
+  },
+  {
+    "x":2020,
+    "y":0.777
+  },
+  {
+    "x":2021,
+    "y":0.796
+  },
+  {
+    "x":2022,
+    "y":0.769
+  },
+  {
+    "x":2023,
+    "y":0.748
+  },
+  {
+    "x":2024,
+    "y":0.736
+  },
+  {
+    "x":2025,
+    "y":0.729
+  },
+  {
+    "x":2026,
+    "y":0.728
+  },
+  {
+    "x":2027,
+    "y":0.728
+  },
+  {
+    "x":2028,
+    "y":0.727
+  },
+  {
+    "x":2029,
+    "y":0.727
+  },
+  {
+    "x":2030,
+    "y":0.722
+  },
+  {
+    "x":2031,
+    "y":0.713
+  },
+  {
+    "x":2032,
+    "y":0.704
+  },
+  {
+    "x":2033,
+    "y":0.695
+  },
+  {
+    "x":2034,
+    "y":0.685
+  },
+  {
+    "x":2035,
+    "y":0.674
+  },
+  {
+    "x":2036,
+    "y":0.662
+  },
+  {
+    "x":2037,
+    "y":0.65
+  },
+  {
+    "x":2038,
+    "y":0.638
+  },
+  {
+    "x":2039,
+    "y":0.627
+  },
+  {
+    "x":2040,
+    "y":0.618
+  }
+];
+	
+    var PopVis = d3.select('#PopVisualisation'), WIDTH = 500, HEIGHT = 250, MARGINS = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 60
+        }, xRange = d3.scale.linear().range([
+            MARGINS.left,
+            WIDTH - MARGINS.right
+        ]).domain([
+            d3.min(PopDataInc, function (d) {
+                return d.x;
+            }),
+            d3.max(PopDataInc, function (d) {
+                return d.x;
+            })
+        ]), yRange = d3.scale.linear().range([
+            HEIGHT - MARGINS.top,
+            MARGINS.bottom
+        ]).domain([
+            d3.min(PopDataCurr, function (d) {
+                return d.y;
+            }),
+            d3.max(PopDataInc, function (d) {
+                return d.y;
+            })
+        ]), xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickFormat(d3.format("d")).tickSubdivide(true), yAxis = d3.svg.axis().scale(yRange).tickSize(5).orient('left').tickSubdivide(true);
+    PopVis.append('svg:g').attr('class', 'x axis').style("fill", "white").attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis);
+    PopVis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis).style("fill", "white");
+    
+	var lineFunc = d3.svg.line().x(function (d) {
+        return xRange(d.x);
+    }).y(function (d) {
+        return yRange(d.y);
+    }).interpolate('linear');
+	
+	
+    //var LineGraph = vis.append('svg:path').attr('d', lineFunc(lineData1)).attr('stroke', '#ff7f00').attr('stroke-width', 2).attr('fill', 'none').attr('class','MyLine');
+	var PopGraphIncrease = PopVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","Current TFR Decline");
+	var PopGraphCurr = PopVis.append('svg:path')
+	.attr("data-legend-color","#ff7f00")
+	.attr("data-legend","Current TFR Decline");
+	var PopGraphDecrease = PopVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","Slow TFR Decline"); 
+	
+	PopGraphCurr.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataCurr)).attrTween('d', PoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	PopGraphDecrease.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataInc)).attrTween('d', PoppathTween2).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
+	PopGraphIncrease.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataDec)).attrTween('d', PoppathTween3).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
+	
+
+  
+  
+	
+	 function PoppathTween() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, PopDataCurr.length + 1));
+        return function(t) {
+            return lineFunc(PopDataCurr.slice(0, interpolate(t)));
+        };
+    }
+		 function PoppathTween2() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, PopDataDec.length + 1));
+        return function(t) {
+            return lineFunc(PopDataDec.slice(0, interpolate(t)));
+        };
+    }
+		 function PoppathTween3() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, PopDataInc.length + 1));
+        return function(t) {
+            return lineFunc(PopDataInc.slice(0, interpolate(t)));
+        };
+    }
+
+	
+	function ShowFuturePopLine(FutScen){
+	if (FutScen == "Inc"){
+	   PopGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   PopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
+	   PopGraphIncrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");
+	   PopGraphIncrease.transition().duration(2000).ease("linear").attr("d", lineFunc(PopDataInc)).attrTween('d', PoppathTween3).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	    
+	   
+	}
+	if (FutScen == "Curr"){
+	   PopGraphCurr.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");;
+	   PopGraphCurr.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataCurr)).attrTween('d', PoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   PopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
+	   PopGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   
+	}
+	if (FutScen == "Dec"){
+	   PopGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   PopGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
+	   PopGraphDecrease.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataInc)).attrTween('d', PoppathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   PopGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   
+	}
+	}
+	
+	
+		//------------------------ END OF Agricultural Yield Graph -------------------------------------------
+	
+
+	
+			//------------------------ START MALNUTRITION GRAPH -------------------------------------------
+	
+	
+		
+var MlNutSvg = d3.select("#MlNutChartDiv").append("svg")
+    .attr("width", 500)
+    .attr("height", 250)
+	.attr("id", "MlNutVisualisation");
+	
+	var MlNutDataCurr = [
+		  {
+			'x':2010,
+			'y':34.6
+		  },
+		  {
+			'x':2011,
+			'y':33.74
+		  },
+		  {
+			'x':2012,
+			'y':33.62
+		  },
+		  {
+			'x':2013,
+			'y':33.68
+		  },
+		  {
+			'x':2014,
+			'y':33.33
+		  },
+		  {
+			'x':2015,
+			'y':32.98
+		  },
+		  {
+			'x':2016,
+			'y':32.63
+		  },
+		  {
+			'x':2017,
+			'y':32.26
+		  },
+		  {
+			'x':2018,
+			'y':31.86
+		  },
+		  {
+			'x':2019,
+			'y':31.45
+		  },
+		  {
+			'x':2020,
+			'y':31.01
+		  },
+		  {
+			'x':2021,
+			'y':30.57
+		  },
+		  {
+			'x':2022,
+			'y':30.01
+		  },
+		  {
+			'x':2023,
+			'y':29.44
+		  },
+		  {
+			'x':2024,
+			'y':28.89
+		  },
+		  {
+			'x':2025,
+			'y':28.39
+		  },
+		  {
+			'x':2026,
+			'y':28
+		  },
+		  {
+			'x':2027,
+			'y':27.65
+		  },
+		  {
+			'x':2028,
+			'y':27.34
+		  },
+		  {
+			'x':2029,
+			'y':27.07
+		  },
+		  {
+			'x':2030,
+			'y':26.84
+		  },
+		  {
+			'x':2031,
+			'y':26.63
+		  },
+		  {
+			'x':2032,
+			'y':26.43
+		  },
+		  {
+			'x':2033,
+			'y':26.18
+		  },
+		  {
+			'x':2034,
+			'y':25.91
+		  },
+		  {
+			'x':2035,
+			'y':25.57
+		  },
+		  {
+			'x':2036,
+			'y':25.19
+		  },
+		  {
+			'x':2037,
+			'y':24.75
+		  },
+		  {
+			'x':2038,
+			'y':24.27
+		  },
+		  {
+			'x':2039,
+			'y':23.76
+		  },
+		  {
+			'x':2040,
+			'y':23.21
+		  }
+		];
+	
+	
+				var MlNutDataInc = [
+		  {
+			"x":2010,
+			"y":34.6
+		  },
+		  {
+			"x":2011,
+			"y":33.74
+		  },
+		  {
+			"x":2012,
+			"y":33.62
+		  },
+		  {
+			"x":2013,
+			"y":33.68
+		  },
+		  {
+			"x":2014,
+			"y":33.33
+		  },
+		  {
+			"x":2015,
+			"y":32.98
+		  },
+		  {
+			"x":2016,
+			"y":32.63
+		  },
+		  {
+			"x":2017,
+			"y":32.13
+		  },
+		  {
+			"x":2018,
+			"y":31.63
+		  },
+		  {
+			"x":2019,
+			"y":31.13
+		  },
+		  {
+			"x":2020,
+			"y":30.62
+		  },
+		  {
+			"x":2021,
+			"y":30.11
+		  },
+		  {
+			"x":2022,
+			"y":29.55
+		  },
+		  {
+			"x":2023,
+			"y":28.98
+		  },
+		  {
+			"x":2024,
+			"y":28.39
+		  },
+		  {
+			"x":2025,
+			"y":27.86
+		  },
+		  {
+			"x":2026,
+			"y":27.41
+		  },
+		  {
+			"x":2027,
+			"y":27
+		  },
+		  {
+			"x":2028,
+			"y":26.62
+		  },
+		  {
+			"x":2029,
+			"y":26.28
+		  },
+		  {
+			"x":2030,
+			"y":25.99
+		  },
+		  {
+			"x":2031,
+			"y":25.74
+		  },
+		  {
+			"x":2032,
+			"y":25.49
+		  },
+		  {
+			"x":2033,
+			"y":25.22
+		  },
+		  {
+			"x":2034,
+			"y":24.89
+		  },
+		  {
+			"x":2035,
+			"y":24.49
+		  },
+		  {
+			"x":2036,
+			"y":24.04
+		  },
+		  {
+			"x":2037,
+			"y":23.53
+		  },
+		  {
+			"x":2038,
+			"y":22.97
+		  },
+		  {
+			"x":2039,
+			"y":22.38
+		  },
+		  {
+			"x":2040,
+			"y":21.75
+		  }
+		];
+	
+	var MlNutDataDec = [
+		  {
+			"x":2010,
+			"y":34.6
+		  },
+		  {
+			"x":2011,
+			"y":33.74
+		  },
+		  {
+			"x":2012,
+			"y":33.62
+		  },
+		  {
+			"x":2013,
+			"y":33.68
+		  },
+		  {
+			"x":2014,
+			"y":33.33
+		  },
+		  {
+			"x":2015,
+			"y":32.99
+		  },
+		  {
+			"x":2016,
+			"y":32.65
+		  },
+		  {
+			"x":2017,
+			"y":32.17
+		  },
+		  {
+			"x":2018,
+			"y":31.68
+		  },
+		  {
+			"x":2019,
+			"y":31.19
+		  },
+		  {
+			"x":2020,
+			"y":30.71
+		  },
+		  {
+			"x":2021,
+			"y":30.21
+		  },
+		  {
+			"x":2022,
+			"y":29.67
+		  },
+		  {
+			"x":2023,
+			"y":29.12
+		  },
+		  {
+			"x":2024,
+			"y":28.55
+		  },
+		  {
+			"x":2025,
+			"y":28.06
+		  },
+		  {
+			"x":2026,
+			"y":27.63
+		  },
+		  {
+			"x":2027,
+			"y":27.25
+		  },
+		  {
+			"x":2028,
+			"y":26.9
+		  },
+		  {
+			"x":2029,
+			"y":26.59
+		  },
+		  {
+			"x":2030,
+			"y":26.33
+		  },
+		  {
+			"x":2031,
+			"y":26.11
+		  },
+		  {
+			"x":2032,
+			"y":25.89
+		  },
+		  {
+			"x":2033,
+			"y":25.65
+		  },
+		  {
+			"x":2034,
+			"y":25.35
+		  },
+		  {
+			"x":2035,
+			"y":24.98
+		  },
+		  {
+			"x":2036,
+			"y":24.56
+		  },
+		  {
+			"x":2037,
+			"y":24.07
+		  },
+		  {
+			"x":2038,
+			"y":23.54
+		  },
+		  {
+			"x":2039,
+			"y":22.96
+		  },
+		  {
+			"x":2040,
+			"y":22.35
+		  }
+		];
+	
+    var MlNutVis = d3.select('#MlNutVisualisation'), WIDTH = 500, HEIGHT = 250, MARGINS = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 60
+        }, xRange = d3.scale.linear().range([
+            MARGINS.left,
+            WIDTH - MARGINS.right
+        ]).domain([
+            d3.min(MlNutDataDec, function (d) {
+                return d.x;
+            }),
+            d3.max(MlNutDataInc, function (d) {
+                return d.x;
+            })
+        ]), MlNutyRange = d3.scale.linear().range([
+            HEIGHT - MARGINS.top,
+            MARGINS.bottom
+        ]).domain([
+            d3.min(MlNutDataInc, function (d) {
+                return d.y;
+            }),
+            d3.max(MlNutDataInc, function (d) {
+                return d.y;
+            })
+        ]), xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickFormat(d3.format("d")).tickSubdivide(true), yAxis = d3.svg.axis().scale(MlNutyRange).tickSize(5).orient('left').tickSubdivide(true);
+    MlNutVis.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis).style("fill", "white");
+    MlNutVis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis).style("fill", "white");
+    
+	var MlNutLineFunc = d3.svg.line().x(function (d) {
+        return xRange(d.x);
+    }).y(function (d) {
+        return MlNutyRange(d.y);
+    }).interpolate('linear');
+	
+	
+    //var LineGraph = vis.append('svg:path').attr('d', lineFunc(lineData1)).attr('stroke', '#ff7f00').attr('stroke-width', 2).attr('fill', 'none').attr('class','MyLine');
+	var MlNutGraphIncrease = MlNutVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","Agricultural Yields Increased 30%");
+	var MlNutGraphCurr = MlNutVis.append('svg:path')
+	.attr("data-legend-color","#ff7f00")
+	.attr("data-legend","Current TFR Decline");
+	var MlNutGraphDecrease = MlNutVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","Slow TFR Decline and Ag Increase"); 
+	
+	MlNutGraphCurr.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataCurr)).attrTween('d', MlNutpathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	MlNutGraphDecrease.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataInc)).attrTween('d', MlNutpathTween2).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
+	MlNutGraphIncrease.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataDec)).attrTween('d', MlNutpathTween3).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
+	
+
+  
+	
+	 function MlNutpathTween() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, MlNutDataCurr.length + 1));
+        return function(t) {
+            return MlNutLineFunc(MlNutDataCurr.slice(0, interpolate(t)));
+        };
+    }
+		 function MlNutpathTween2() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, MlNutDataDec.length + 1));
+        return function(t) {
+            return MlNutLineFunc(MlNutDataDec.slice(0, interpolate(t)));
+        };
+    }
+		 function MlNutpathTween3() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, MlNutDataInc.length + 1));
+        return function(t) {
+            return MlNutLineFunc(MlNutDataInc.slice(0, interpolate(t)));
+        };
+    }
+
+	
+	function ShowFutureMlNutLine(FutScen){
+	if (FutScen == "Inc"){
+	   MlNutGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   MlNutGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
+	   MlNutGraphIncrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");
+	   MlNutGraphIncrease.transition().duration(2000).ease("linear").attr("d", MlNutLineFunc(MlNutDataInc)).attrTween('d', MlNutpathTween3).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   MlNutLegend.call(d3.legend); 
+	   
+	}
+	if (FutScen == "Curr"){
+	   MlNutGraphCurr.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");;
+	   MlNutGraphCurr.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataCurr)).attrTween('d', MlNutpathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   MlNutGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
+	   MlNutGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   MlNutLegend.call(d3.legend);
+	}
+	if (FutScen == "Dec"){
+	   MlNutGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   MlNutGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
+	   MlNutGraphDecrease.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataInc)).attrTween('d', MlNutpathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   MlNutGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   
+	}
+	}
+	//------------------------ END MALNUTRITION GRAPH --------------------------------------------
+	
+	
+//------------------------ START TFR GRAPH -------------------------------------------
+	
+	
+		
+var UrbPopSvg = d3.select("#PopPyramidDiv").append("svg")
+    .attr("width", 500)
+    .attr("height", 250)
+	.attr("id", "UrbPopVisualisation");
+	
+	var UrbPopDataCurr = [
+  {
+    "x":2010,
+    "y":6.147
+  },
+  {
+    "x":2011,
+    "y":6.073
+  },
+  {
+    "x":2012,
+    "y":6.01
+  },
+  {
+    "x":2013,
+    "y":5.956
+  },
+  {
+    "x":2014,
+    "y":5.901
+  },
+  {
+    "x":2015,
+    "y":5.84
+  },
+  {
+    "x":2016,
+    "y":5.771
+  },
+  {
+    "x":2017,
+    "y":5.692
+  },
+  {
+    "x":2018,
+    "y":5.607
+  },
+  {
+    "x":2019,
+    "y":5.516
+  },
+  {
+    "x":2020,
+    "y":5.423
+  },
+  {
+    "x":2021,
+    "y":5.331
+  },
+  {
+    "x":2022,
+    "y":5.236
+  },
+  {
+    "x":2023,
+    "y":5.14
+  },
+  {
+    "x":2024,
+    "y":5.043
+  },
+  {
+    "x":2025,
+    "y":4.947
+  },
+  {
+    "x":2026,
+    "y":4.853
+  },
+  {
+    "x":2027,
+    "y":4.76
+  },
+  {
+    "x":2028,
+    "y":4.668
+  },
+  {
+    "x":2029,
+    "y":4.577
+  },
+  {
+    "x":2030,
+    "y":4.488
+  },
+  {
+    "x":2031,
+    "y":4.399
+  },
+  {
+    "x":2032,
+    "y":4.312
+  },
+  {
+    "x":2033,
+    "y":4.225
+  },
+  {
+    "x":2034,
+    "y":4.14
+  },
+  {
+    "x":2035,
+    "y":4.055
+  },
+  {
+    "x":2036,
+    "y":3.971
+  },
+  {
+    "x":2037,
+    "y":3.888
+  },
+  {
+    "x":2038,
+    "y":3.806
+  },
+  {
+    "x":2039,
+    "y":3.723
+  },
+  {
+    "x":2040,
+    "y":3.641
+  }
+];
+	
+	
+
+	
+	var UrbPopDataDec = [
+  {
+    "x":2010,
+    "y":6.147
+  },
+  {
+    "x":2011,
+    "y":6.073
+  },
+  {
+    "x":2012,
+    "y":6.028
+  },
+  {
+    "x":2013,
+    "y":6.015
+  },
+  {
+    "x":2014,
+    "y":6.019
+  },
+  {
+    "x":2015,
+    "y":6.027
+  },
+  {
+    "x":2016,
+    "y":6.028
+  },
+  {
+    "x":2017,
+    "y":6.016
+  },
+  {
+    "x":2018,
+    "y":5.993
+  },
+  {
+    "x":2019,
+    "y":5.958
+  },
+  {
+    "x":2020,
+    "y":5.913
+  },
+  {
+    "x":2021,
+    "y":5.866
+  },
+  {
+    "x":2022,
+    "y":5.815
+  },
+  {
+    "x":2023,
+    "y":5.76
+  },
+  {
+    "x":2024,
+    "y":5.703
+  },
+  {
+    "x":2025,
+    "y":5.644
+  },
+  {
+    "x":2026,
+    "y":5.587
+  },
+  {
+    "x":2027,
+    "y":5.529
+  },
+  {
+    "x":2028,
+    "y":5.471
+  },
+  {
+    "x":2029,
+    "y":5.412
+  },
+  {
+    "x":2030,
+    "y":5.353
+  },
+  {
+    "x":2031,
+    "y":5.294
+  },
+  {
+    "x":2032,
+    "y":5.234
+  },
+  {
+    "x":2033,
+    "y":5.174
+  },
+  {
+    "x":2034,
+    "y":5.114
+  },
+  {
+    "x":2035,
+    "y":5.053
+  },
+  {
+    "x":2036,
+    "y":4.992
+  },
+  {
+    "x":2037,
+    "y":4.892
+  },
+  {
+    "x":2038,
+    "y":4.792
+  },
+  {
+    "x":2039,
+    "y":4.693
+  },
+  {
+    "x":2040,
+    "y":4.594
+  }
+];
+	
+    var UrbPopVis = d3.select('#UrbPopVisualisation'), WIDTH = 500, HEIGHT = 250, MARGINS = {
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 60
+        }, xRange = d3.scale.linear().range([
+            MARGINS.left,
+            WIDTH - MARGINS.right
+        ]).domain([
+            d3.min(UrbPopDataDec, function (d) {
+                return d.x;
+            }),
+            d3.max(UrbPopDataDec, function (d) {
+                return d.x;
+            })
+        ]), UrbPopyRange = d3.scale.linear().range([
+            HEIGHT - MARGINS.top,
+            MARGINS.bottom
+        ]).domain([
+            d3.min(UrbPopDataCurr, function (d) {
+                return d.y;
+            }),
+            d3.max(UrbPopDataDec, function (d) {
+                return d.y;
+            })
+        ]), xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickFormat(d3.format("d")).tickSubdivide(true), yAxis = d3.svg.axis().scale(UrbPopyRange).tickSize(5).orient('left').tickSubdivide(true);
+    UrbPopVis.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis).style("fill", "white");
+    UrbPopVis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis).style("fill", "white");
+    
+	var UrbPopLineFunc = d3.svg.line().x(function (d) {
+        return xRange(d.x);
+    }).y(function (d) {
+        return UrbPopyRange(d.y);
+    }).interpolate('linear');
+	
+	
+    //var LineGraph = vis.append('svg:path').attr('d', lineFunc(lineData1)).attr('stroke', '#ff7f00').attr('stroke-width', 2).attr('fill', 'none').attr('class','MyLine');
+	var UrbPopGraphCurr = UrbPopVis.append('svg:path')
+	.attr("data-legend-color","#ff7f00")
+	.attr("data-legend","Current TFR Decline");
+	var UrbPopGraphDecrease = UrbPopVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","Slow TFR Decline"); 
+	
+	UrbPopGraphCurr.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataCurr)).attrTween('d', UrbPoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	UrbPopGraphDecrease.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataDec)).attrTween('d', UrbPoppathTween2).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
+	
+	
+	//var svg = d3.select("body").append("svg"); 
+	
+  
+  
+	
+	 function UrbPoppathTween() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, UrbPopDataCurr.length + 1));
+        return function(t) {
+            return UrbPopLineFunc(UrbPopDataCurr.slice(0, interpolate(t)));
+        };
+    }
+		 function UrbPoppathTween2() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, UrbPopDataDec.length + 1));
+        return function(t) {
+            return UrbPopLineFunc(UrbPopDataDec.slice(0, interpolate(t)));
+        };
+    }
+
+
+	
+	function ShowFutureUrbPopLine(FutScen){
+	if (FutScen == "Curr"){
+	   UrbPopGraphCurr.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");;
+	   UrbPopGraphCurr.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataCurr)).attrTween('d', UrbPoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   UrbPopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
+	   
+	   
+	}
+	if (FutScen == "Dec"){
+	   UrbPopGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
+	   UrbPopGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
+	   UrbPopGraphDecrease.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataDec)).attrTween('d', UrbPoppathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
+	   
+	   
+	}
+	}
+		
+//---------------------- End of TFR Chart --------------------------------------
+	
+	
+</script>
+<script src='http://codepen.io/assets/editor/live/css_live_reload_init.js'></script><br>
+
+</body></html>
