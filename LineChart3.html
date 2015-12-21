@@ -6,7 +6,7 @@
 <style class="cp-pen-styles">        .axis path, .axis line
         {
             fill: none;
-            stroke: white;
+            stroke: #666666;
             shape-rendering: crispEdges;
         }
         
@@ -27,7 +27,7 @@
 			width:150px;
 			height:150px;}
 		.chartTitle{
-			color: white;
+			color: black;
 		}
 			
 		<style id="jsbin-css">
@@ -61,7 +61,7 @@ h2{
   width: 520px;
  height: 270px; 
   left: 20px;
- top: 500px
+ top: 400px
  }
  #EdChartDiv{
  position: fixed;
@@ -75,7 +75,14 @@ h2{
   width: 520px;
  height: 270px; 
   left: 700px;
- top: 300px;
+ top: 280px;
+ }
+ #rightbutton{
+position: fixed;
+ width: 8%;
+ height: 25%; 
+ left: 560px;
+ top: 330px;
  }
   
        </style></head><body>
@@ -90,7 +97,7 @@ h2{
 	   
 	   <div id="PopPyramidDiv" class="chartTitle">Total Fertility Rate</div>
 	   
-	   
+	   <img id='rightbutton' src="img/arrow_grey_right.png">
 	   
 	   
 	   
@@ -546,8 +553,8 @@ var PopSvg = d3.select("#PopChartDiv").append("svg")
                 return d.y;
             })
         ]), xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickFormat(d3.format("d")).tickSubdivide(true), yAxis = d3.svg.axis().scale(yRange).tickSize(5).orient('left').tickSubdivide(true);
-    PopVis.append('svg:g').attr('class', 'x axis').style("fill", "white").attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis);
-    PopVis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis).style("fill", "white");
+    PopVis.append('svg:g').attr('class', 'x axis').style("fill", "black").attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis);
+    PopVis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis).style("fill", "black");
     
 	var lineFunc = d3.svg.line().x(function (d) {
         return xRange(d.x);
@@ -1048,8 +1055,8 @@ var MlNutSvg = d3.select("#MlNutChartDiv").append("svg")
                 return d.y;
             })
         ]), xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickFormat(d3.format("d")).tickSubdivide(true), yAxis = d3.svg.axis().scale(MlNutyRange).tickSize(5).orient('left').tickSubdivide(true);
-    MlNutVis.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis).style("fill", "white");
-    MlNutVis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis).style("fill", "white");
+    MlNutVis.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis).style("fill", "black");
+    MlNutVis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis).style("fill", "black");
     
 	var MlNutLineFunc = d3.svg.line().x(function (d) {
         return xRange(d.x);
@@ -1108,7 +1115,7 @@ var MlNutSvg = d3.select("#MlNutChartDiv").append("svg")
 	   MlNutGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
 	   MlNutGraphIncrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");
 	   MlNutGraphIncrease.transition().duration(2000).ease("linear").attr("d", MlNutLineFunc(MlNutDataInc)).attrTween('d', MlNutpathTween3).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
-	   MlNutLegend.call(d3.legend); 
+	    
 	   
 	}
 	if (FutScen == "Curr"){
@@ -1116,7 +1123,7 @@ var MlNutSvg = d3.select("#MlNutChartDiv").append("svg")
 	   MlNutGraphCurr.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataCurr)).attrTween('d', MlNutpathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	   MlNutGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
 	   MlNutGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
-	   MlNutLegend.call(d3.legend);
+	   
 	}
 	if (FutScen == "Dec"){
 	   MlNutGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
@@ -1421,8 +1428,8 @@ var UrbPopSvg = d3.select("#PopPyramidDiv").append("svg")
                 return d.y;
             })
         ]), xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickFormat(d3.format("d")).tickSubdivide(true), yAxis = d3.svg.axis().scale(UrbPopyRange).tickSize(5).orient('left').tickSubdivide(true);
-    UrbPopVis.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis).style("fill", "white");
-    UrbPopVis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis).style("fill", "white");
+    UrbPopVis.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call(xAxis).style("fill", "black");
+    UrbPopVis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call(yAxis).style("fill", "black");
     
 	var UrbPopLineFunc = d3.svg.line().x(function (d) {
         return xRange(d.x);

@@ -220,6 +220,7 @@ hr.small {
     -o-background-size: cover;
 }
 
+
 /* Portfolio */
 
 .portfolio {
@@ -246,6 +247,9 @@ hr.small {
 
 .call-to-action .btn {
     margin: 10px;
+}
+#secondfutures{
+	background-color:white;
 }
 
 /* Map */

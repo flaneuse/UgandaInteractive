@@ -36,6 +36,9 @@ svg {
 h2{
 	text-align: center;
 }
+.body{
+	background: #337AB7;
+}
 
 
 
@@ -52,7 +55,7 @@ h2{
   position: fixed;
   width: 520px;
  height: 270px; 
-  left: 540px;
+  left: 640px;
  top: 110px;
  
  }
@@ -64,6 +67,13 @@ position: fixed;
  top: 110px;
  }
 
+ #rightbutton{
+position: fixed;
+ width: 5%;
+ height: 25%; 
+ left: 560px;
+ top: 200px;
+ }
   
        </style></head><body>
 	   
@@ -72,8 +82,9 @@ position: fixed;
 <b><input type="radio" name="fr" value="Current" checked="checked" onclick="changeVals('Curr');">Current Rates <input type="radio" name="fr" value="Dec" onclick="changeVals('Dec');">Slow Total Fertility Rate Decline </b>
 	   
 	   
-	   <div id="PopPyramidDiv" class="chartTitle">Total Fertility Rate</div>
+	   <div id="PopPyramidDiv" class="chartTitle">Total Fertility Rate </div>
 	   
+	   <img id='rightbutton' src="img/arrow_white_right.png">
 	   
 	   <div id="PopChartDiv" class="chartTitle">Total Population</div>
 	   
