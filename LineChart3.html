@@ -80,7 +80,7 @@ h2{
  #rightbutton{
 position: fixed;
  width: 8%;
- height: 25%; 
+ height: 20%; 
  left: 560px;
  top: 330px;
  }
@@ -1445,6 +1445,8 @@ var UrbPopSvg = d3.select("#PopPyramidDiv").append("svg")
 	var UrbPopGraphDecrease = UrbPopVis.append('svg:path')
 	.attr("data-legend-color","lightgray")
 	.attr("data-legend","Slow TFR Decline"); 
+	
+	//UrbPopVis.append("text").attr("transform", "translate( 500, 500)").attr("dy", ".35em").attr("text-anchor", "start").style("fill", "black").text("Total Fertility Rate Doe");
 	
 	UrbPopGraphCurr.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataCurr)).attrTween('d', UrbPoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	UrbPopGraphDecrease.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataDec)).attrTween('d', UrbPoppathTween2).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');

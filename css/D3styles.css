@@ -165,3 +165,14 @@ img {
 	cursor: pointer;
 	margin-left:0%;
 }
+.listimg{
+	font-size: 15px;
+	color: white;
+}
+.listimg a:link{
+	font-size: 15px;
+	color: white;
+}
+.listimg a:visited {
+    color: #dddddd;
+}
