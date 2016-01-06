@@ -160,10 +160,10 @@ img {
 	height: 52px;
 	background: url(../img/scroll-invite.png);
 	background-repeat: no-repeat;
-	background-position: 50%;
+	background-position: 0%;
 	background-size: 130px 52px;
 	cursor: pointer;
-	margin-left:0%;
+	left:0%;
 }
 .listimg{
 	font-size: 15px;

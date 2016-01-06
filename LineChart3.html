@@ -79,25 +79,28 @@ h2{
  }
  #rightbutton{
 position: fixed;
- width: 8%;
- height: 20%; 
+ width: 100px;
+ height: 300px; 
  left: 560px;
- top: 330px;
+ top: 230px;
+ font-size: 100px;
+ font-family: "Arial";
  }
   
        </style></head><body>
 	   
 	   
 
-<b><input type="radio" name="fr" value="Current" checked="checked" onclick="changeVals('Curr');">Current Rates <input type="radio" name="fr" value="Dec" onclick="changeVals('Dec');">Slow Total Fertility Rate Decline <input type="radio" name="fr" value="5Inc" onclick="changeVals('Inc');"> 30% Increase in Agricultural Yields </b>
+<b><input type="radio" name="fr" value="Current" checked="checked" onclick="changeVals('Curr');">Anticipated Path <input type="radio" name="fr" value="5Inc" onclick="changeVals('Inc');"> 30% Increase in Agricultural Production <input type="radio" name="fr" value="Dec" onclick="changeVals('Dec');">Slow TFR Decline and 30% Increase in Agricultural Production  </b>
 	   
 	   
-	   <div id="PopChartDiv" class="chartTitle">Agricultural Yield</div>
+	   <div id="PopChartDiv" class="chartTitle">Agricultural Production</div>
 	   
 	   
 	   <div id="PopPyramidDiv" class="chartTitle">Total Fertility Rate</div>
 	   
-	   <img id='rightbutton' src="img/arrow_grey_right.png">
+	   <!--<img id='rightbutton' src="img/arrow_grey_right.png">-->
+	   <p id='rightbutton'>&rarr;</p>
 	   
 	   
 	   
@@ -110,7 +113,7 @@ position: fixed;
 //function InitChart() {
 
 
-// ------------------- Beginning of chart for Agricultural Yield -------------------------
+// ------------------- Beginning of chart for Agricultural Production -------------------------
 function changeVals(ValDir){
 ShowFuturePopLine(ValDir);
 ShowFutureMlNutLine(ValDir);
@@ -564,12 +567,12 @@ var PopSvg = d3.select("#PopChartDiv").append("svg")
 	
 	
     //var LineGraph = vis.append('svg:path').attr('d', lineFunc(lineData1)).attr('stroke', '#ff7f00').attr('stroke-width', 2).attr('fill', 'none').attr('class','MyLine');
-	var PopGraphIncrease = PopVis.append('svg:path')
-	.attr("data-legend-color","lightgray")
-	.attr("data-legend","Current TFR Decline");
 	var PopGraphCurr = PopVis.append('svg:path')
 	.attr("data-legend-color","#ff7f00")
-	.attr("data-legend","Current TFR Decline");
+	.attr("data-legend","Anticipated TFR Decline");
+	var PopGraphIncrease = PopVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","30% Increase & Slow TFR Decline");
 	var PopGraphDecrease = PopVis.append('svg:path')
 	.attr("data-legend-color","lightgray")
 	.attr("data-legend","Slow TFR Decline"); 
@@ -578,7 +581,11 @@ var PopSvg = d3.select("#PopChartDiv").append("svg")
 	PopGraphDecrease.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataInc)).attrTween('d', PoppathTween2).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
 	PopGraphIncrease.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataDec)).attrTween('d', PoppathTween3).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
 	
-
+	var PopLegend = PopSvg.append("g")
+	.attr("class","legend")
+	.attr("transform","translate("+(WIDTH-200)+",35)")
+	.style("font-size","12px")
+	.call(d3.legend);
   
   
 	
@@ -614,7 +621,7 @@ var PopSvg = d3.select("#PopChartDiv").append("svg")
 	   PopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
 	   PopGraphIncrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");
 	   PopGraphIncrease.transition().duration(2000).ease("linear").attr("d", lineFunc(PopDataInc)).attrTween('d', PoppathTween3).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
-	    
+	    PopLegend.call(d3.legend);
 	   
 	}
 	if (FutScen == "Curr"){
@@ -622,19 +629,19 @@ var PopSvg = d3.select("#PopChartDiv").append("svg")
 	   PopGraphCurr.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataCurr)).attrTween('d', PoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	   PopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
 	   PopGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
-	   
+	   PopLegend.call(d3.legend);
 	}
 	if (FutScen == "Dec"){
 	   PopGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
 	   PopGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
 	   PopGraphDecrease.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataInc)).attrTween('d', PoppathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	   PopGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
-	   
+	   PopLegend.call(d3.legend);
 	}
 	}
 	
 	
-		//------------------------ END OF Agricultural Yield Graph -------------------------------------------
+		//------------------------ END OF Agricultural Production Graph -------------------------------------------
 	
 
 	
@@ -1066,21 +1073,25 @@ var MlNutSvg = d3.select("#MlNutChartDiv").append("svg")
 	
 	
     //var LineGraph = vis.append('svg:path').attr('d', lineFunc(lineData1)).attr('stroke', '#ff7f00').attr('stroke-width', 2).attr('fill', 'none').attr('class','MyLine');
-	var MlNutGraphIncrease = MlNutVis.append('svg:path')
-	.attr("data-legend-color","lightgray")
-	.attr("data-legend","Agricultural Yields Increased 30%");
 	var MlNutGraphCurr = MlNutVis.append('svg:path')
 	.attr("data-legend-color","#ff7f00")
-	.attr("data-legend","Current TFR Decline");
+	.attr("data-legend","Anticipated TFR Decline");
+	var MlNutGraphIncrease = MlNutVis.append('svg:path')
+	.attr("data-legend-color","lightgray")
+	.attr("data-legend","30% Producation Increase");
 	var MlNutGraphDecrease = MlNutVis.append('svg:path')
 	.attr("data-legend-color","lightgray")
-	.attr("data-legend","Slow TFR Decline and Ag Increase"); 
+	.attr("data-legend","Slow TFR Decline and 30% Ag Increase"); 
 	
 	MlNutGraphCurr.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataCurr)).attrTween('d', MlNutpathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	MlNutGraphDecrease.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataInc)).attrTween('d', MlNutpathTween2).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
 	MlNutGraphIncrease.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataDec)).attrTween('d', MlNutpathTween3).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
 	
-
+	var MlNutLegend = MlNutSvg.append("g")
+	.attr("class","legend")
+  .attr("transform","translate("+(WIDTH-280)+",35)")
+  .style("font-size","12px")
+  .call(d3.legend);
   
 	
 	 function MlNutpathTween() {
@@ -1115,7 +1126,7 @@ var MlNutSvg = d3.select("#MlNutChartDiv").append("svg")
 	   MlNutGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
 	   MlNutGraphIncrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");
 	   MlNutGraphIncrease.transition().duration(2000).ease("linear").attr("d", MlNutLineFunc(MlNutDataInc)).attrTween('d', MlNutpathTween3).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
-	    
+	   MlNutLegend.call(d3.legend); 
 	   
 	}
 	if (FutScen == "Curr"){
@@ -1123,14 +1134,14 @@ var MlNutSvg = d3.select("#MlNutChartDiv").append("svg")
 	   MlNutGraphCurr.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataCurr)).attrTween('d', MlNutpathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	   MlNutGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
 	   MlNutGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
-	   
+	   MlNutLegend.call(d3.legend);
 	}
 	if (FutScen == "Dec"){
 	   MlNutGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
 	   MlNutGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
 	   MlNutGraphDecrease.transition().duration(1000).ease("linear").attr("d", MlNutLineFunc(MlNutDataInc)).attrTween('d', MlNutpathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	   MlNutGraphIncrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
-	   
+	   MlNutLegend.call(d3.legend);
 	}
 	}
 	//------------------------ END MALNUTRITION GRAPH --------------------------------------------
@@ -1441,7 +1452,7 @@ var UrbPopSvg = d3.select("#PopPyramidDiv").append("svg")
     //var LineGraph = vis.append('svg:path').attr('d', lineFunc(lineData1)).attr('stroke', '#ff7f00').attr('stroke-width', 2).attr('fill', 'none').attr('class','MyLine');
 	var UrbPopGraphCurr = UrbPopVis.append('svg:path')
 	.attr("data-legend-color","#ff7f00")
-	.attr("data-legend","Current TFR Decline");
+	.attr("data-legend","Anticipated TFR Decline");
 	var UrbPopGraphDecrease = UrbPopVis.append('svg:path')
 	.attr("data-legend-color","lightgray")
 	.attr("data-legend","Slow TFR Decline"); 
@@ -1453,7 +1464,11 @@ var UrbPopSvg = d3.select("#PopPyramidDiv").append("svg")
 	
 	
 	//var svg = d3.select("body").append("svg"); 
-	
+	var UrbPopLegend = UrbPopSvg.append("g")
+	.attr("class","legend")
+    .attr("transform","translate("+(WIDTH-150)+",35)")
+    .style("font-size","12px")
+    .call(d3.legend);
   
   
 	
@@ -1481,14 +1496,14 @@ var UrbPopSvg = d3.select("#PopPyramidDiv").append("svg")
 	   UrbPopGraphCurr.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");;
 	   UrbPopGraphCurr.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataCurr)).attrTween('d', UrbPoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	   UrbPopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
-	   
+	   UrbPopLegend.call(d3.legend);
 	   
 	}
 	if (FutScen == "Dec"){
 	   UrbPopGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
 	   UrbPopGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
 	   UrbPopGraphDecrease.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataDec)).attrTween('d', UrbPoppathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
-	   
+	   UrbPopLegend.call(d3.legend);
 	   
 	}
 	}

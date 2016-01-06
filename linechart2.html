@@ -71,20 +71,23 @@ position: fixed;
 position: fixed;
  width: 5%;
  height: 25%; 
- left: 560px;
- top: 200px;
+ left: 540px;
+ top: 100px;
+ font-size: 100px;
+ font-family: "Arial";
  }
   
        </style></head><body>
 	   
 	   
 
-<b><input type="radio" name="fr" value="Current" checked="checked" onclick="changeVals('Curr');">Current Rates <input type="radio" name="fr" value="Dec" onclick="changeVals('Dec');">Slow Total Fertility Rate Decline </b>
+<b><input type="radio" name="fr" value="Current" checked="checked" onclick="changeVals('Curr');">Anticipated Path <input type="radio" name="fr" value="Dec" onclick="changeVals('Dec');">Slow Total Fertility Rate Decline </b>
 	   
 	   
 	   <div id="PopPyramidDiv" class="chartTitle">Total Fertility Rate </div>
 	   
-	   <img id='rightbutton' src="img/arrow_white_right.png">
+	   <!--<img id='rightbutton' src="img/arrow_white_right.png">-->
+	   <p id='rightbutton'>&rarr;</p>
 	   
 	   <div id="PopChartDiv" class="chartTitle">Total Population</div>
 	   
@@ -135,381 +138,381 @@ var PopSvg = d3.select("#PopChartDiv").append("svg")
 	var PopDataCurr = [
 		  {
 			"x":2010,
-			"y":28.84
+			"y":33.99
 		  },
 		  {
 			"x":2011,
-			"y":29.63
+			"y":35.04
 		  },
 		  {
 			"x":2012,
-			"y":30.45
+			"y":36.13
 		  },
 		  {
 			"x":2013,
-			"y":31.3
+			"y":37.26
 		  },
 		  {
 			"x":2014,
-			"y":32.18
+			"y":38.44
 		  },
 		  {
 			"x":2015,
-			"y":33.09
+			"y":39.65
 		  },
 		  {
 			"x":2016,
-			"y":34.02
+			"y":40.92
 		  },
 		  {
 			"x":2017,
-			"y":34.98
-		  },
-		  {
-			"x":2018,
-			"y":35.97
-		  },
-		  {
-			"x":2019,
-			"y":36.97
-		  },
-		  {
-			"x":2020,
-			"y":37.99
-		  },
-		  {
-			"x":2021,
-			"y":39.03
-		  },
-		  {
-			"x":2022,
-			"y":40.08
-		  },
-		  {
-			"x":2023,
-			"y":41.14
-		  },
-		  {
-			"x":2024,
 			"y":42.22
 		  },
 		  {
+			"x":2018,
+			"y":43.56
+		  },
+		  {
+			"x":2019,
+			"y":44.93
+		  },
+		  {
+			"x":2020,
+			"y":46.34
+		  },
+		  {
+			"x":2021,
+			"y":47.79
+		  },
+		  {
+			"x":2022,
+			"y":49.26
+		  },
+		  {
+			"x":2023,
+			"y":50.77
+		  },
+		  {
+			"x":2024,
+			"y":52.31
+		  },
+		  {
 			"x":2025,
-			"y":43.31
+			"y":53.89
 		  },
 		  {
 			"x":2026,
-			"y":44.41
+			"y":55.49
 		  },
 		  {
 			"x":2027,
-			"y":45.51
+			"y":57.11
 		  },
 		  {
 			"x":2028,
-			"y":46.62
+			"y":58.76
 		  },
 		  {
 			"x":2029,
-			"y":47.72
+			"y":60.43
 		  },
 		  {
 			"x":2030,
-			"y":48.82
+			"y":62.12
 		  },
 		  {
 			"x":2031,
-			"y":49.92
+			"y":63.83
 		  },
 		  {
 			"x":2032,
-			"y":51.02
+			"y":65.56
 		  },
 		  {
 			"x":2033,
-			"y":52.1
+			"y":67.3
 		  },
 		  {
 			"x":2034,
-			"y":53.17
+			"y":69.05
 		  },
 		  {
 			"x":2035,
-			"y":54.23
+			"y":70.81
 		  },
 		  {
 			"x":2036,
-			"y":55.28
+			"y":72.59
 		  },
 		  {
 			"x":2037,
-			"y":56.31
+			"y":74.38
 		  },
 		  {
 			"x":2038,
-			"y":57.33
+			"y":76.17
 		  },
 		  {
 			"x":2039,
-			"y":58.33
+			"y":77.98
 		  },
 		  {
 			"x":2040,
-			"y":59.31
+			"y":79.79
 		  }
 		];
 	
 		var PopDataInc = [
 		  {
 			"x":2010,
-			"y":28.84
+			"y":33.99
 		  },
 		  {
 			"x":2011,
-			"y":29.63
+			"y":35.04
 		  },
 		  {
 			"x":2012,
-			"y":30.45
+			"y":36.13
 		  },
 		  {
 			"x":2013,
-			"y":31.3
+			"y":37.26
 		  },
 		  {
 			"x":2014,
-			"y":32.18
+			"y":38.44
 		  },
 		  {
 			"x":2015,
-			"y":33.09
+			"y":39.65
 		  },
 		  {
 			"x":2016,
-			"y":34.02
+			"y":40.92
 		  },
 		  {
 			"x":2017,
-			"y":34.98
-		  },
-		  {
-			"x":2018,
-			"y":35.97
-		  },
-		  {
-			"x":2019,
-			"y":36.97
-		  },
-		  {
-			"x":2020,
-			"y":37.99
-		  },
-		  {
-			"x":2021,
-			"y":39.03
-		  },
-		  {
-			"x":2022,
-			"y":40.08
-		  },
-		  {
-			"x":2023,
-			"y":41.14
-		  },
-		  {
-			"x":2024,
 			"y":42.22
 		  },
 		  {
+			"x":2018,
+			"y":43.56
+		  },
+		  {
+			"x":2019,
+			"y":44.93
+		  },
+		  {
+			"x":2020,
+			"y":46.34
+		  },
+		  {
+			"x":2021,
+			"y":47.79
+		  },
+		  {
+			"x":2022,
+			"y":49.26
+		  },
+		  {
+			"x":2023,
+			"y":50.77
+		  },
+		  {
+			"x":2024,
+			"y":52.31
+		  },
+		  {
 			"x":2025,
-			"y":43.31
+			"y":53.89
 		  },
 		  {
 			"x":2026,
-			"y":44.41
+			"y":55.49
 		  },
 		  {
 			"x":2027,
-			"y":45.51
+			"y":57.11
 		  },
 		  {
 			"x":2028,
-			"y":46.62
+			"y":58.76
 		  },
 		  {
 			"x":2029,
-			"y":47.72
+			"y":60.43
 		  },
 		  {
 			"x":2030,
-			"y":48.82
+			"y":62.12
 		  },
 		  {
 			"x":2031,
-			"y":49.92
+			"y":63.83
 		  },
 		  {
 			"x":2032,
-			"y":51.02
+			"y":65.56
 		  },
 		  {
 			"x":2033,
-			"y":52.1
+			"y":67.3
 		  },
 		  {
 			"x":2034,
-			"y":53.17
+			"y":69.05
 		  },
 		  {
 			"x":2035,
-			"y":54.23
+			"y":70.81
 		  },
 		  {
 			"x":2036,
-			"y":55.28
+			"y":72.59
 		  },
 		  {
 			"x":2037,
-			"y":56.31
+			"y":74.38
 		  },
 		  {
 			"x":2038,
-			"y":57.33
+			"y":76.17
 		  },
 		  {
 			"x":2039,
-			"y":58.33
+			"y":77.98
 		  },
 		  {
 			"x":2040,
-			"y":59.31
+			"y":79.79
 		  }
 		];
 	
 		var PopDataDec = [
 		  {
 			"x":2010,
-			"y":28.84
+			"y":33.99
 		  },
 		  {
 			"x":2011,
-			"y":29.63
+			"y":35.04
 		  },
 		  {
 			"x":2012,
-			"y":30.45
+			"y":36.13
 		  },
 		  {
 			"x":2013,
-			"y":31.3
+			"y":37.27
 		  },
 		  {
 			"x":2014,
-			"y":32.2
+			"y":38.45
 		  },
 		  {
 			"x":2015,
-			"y":33.13
+			"y":39.7
 		  },
 		  {
 			"x":2016,
-			"y":34.12
+			"y":41.02
 		  },
 		  {
 			"x":2017,
-			"y":35.15
+			"y":42.39
 		  },
 		  {
 			"x":2018,
-			"y":36.22
+			"y":43.83
 		  },
 		  {
 			"x":2019,
-			"y":37.33
+			"y":45.32
 		  },
 		  {
 			"x":2020,
-			"y":38.48
+			"y":46.86
 		  },
 		  {
 			"x":2021,
-			"y":39.66
+			"y":48.46
 		  },
 		  {
 			"x":2022,
-			"y":40.88
+			"y":50.12
 		  },
 		  {
 			"x":2023,
-			"y":42.13
+			"y":51.83
 		  },
 		  {
 			"x":2024,
-			"y":43.42
+			"y":53.59
 		  },
 		  {
 			"x":2025,
-			"y":44.73
+			"y":55.41
 		  },
 		  {
 			"x":2026,
-			"y":46.08
+			"y":57.27
 		  },
 		  {
 			"x":2027,
-			"y":47.45
+			"y":59.19
 		  },
 		  {
 			"x":2028,
-			"y":48.84
+			"y":61.15
 		  },
 		  {
 			"x":2029,
-			"y":50.25
+			"y":63.16
 		  },
 		  {
 			"x":2030,
-			"y":51.69
+			"y":65.21
 		  },
 		  {
 			"x":2031,
-			"y":53.15
+			"y":67.31
 		  },
 		  {
 			"x":2032,
-			"y":54.62
+			"y":69.46
 		  },
 		  {
 			"x":2033,
-			"y":56.1
+			"y":71.64
 		  },
 		  {
 			"x":2034,
-			"y":57.6
+			"y":73.87
 		  },
 		  {
 			"x":2035,
-			"y":59.12
+			"y":76.15
 		  },
 		  {
 			"x":2036,
-			"y":60.66
+			"y":78.47
 		  },
 		  {
 			"x":2037,
-			"y":62.21
+			"y":80.84
 		  },
 		  {
 			"x":2038,
-			"y":63.76
+			"y":83.24
 		  },
 		  {
 			"x":2039,
-			"y":65.3
+			"y":85.66
 		  },
 		  {
 			"x":2040,
-			"y":66.84
+			"y":88.11
 		  }
 		];
 	
@@ -553,15 +556,19 @@ var PopSvg = d3.select("#PopChartDiv").append("svg")
 	
 	var PopGraphCurr = PopVis.append('svg:path')
 	.attr("data-legend-color","#ff7f00")
-	.attr("data-legend","Current TFR Decline");
+	.attr("data-legend","Population Increase due to Current TFR Decline");
 	var PopGraphDecrease = PopVis.append('svg:path')
 	.attr("data-legend-color","lightgray")
-	.attr("data-legend","Slow TFR Decline"); 
+	.attr("data-legend","Population Increase due to Slow TFR Decline"); 
 	
 	PopGraphCurr.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataCurr)).attrTween('d', PoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	PopGraphDecrease.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataDec)).attrTween('d', PoppathTween2).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
 	
-
+	var PopLegend = PopSvg.append("g")
+	.attr("class","legend")
+	.attr("transform","translate(75,35)")
+	.style("font-size","12px")
+	.call(d3.legend);
   
   
 	
@@ -588,14 +595,14 @@ var PopSvg = d3.select("#PopChartDiv").append("svg")
 	   PopGraphCurr.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");;
 	   PopGraphCurr.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataCurr)).attrTween('d', PoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	   PopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
-	   
+	   PopLegend.call(d3.legend);
 	   
 	}
 	if (FutScen == "Dec"){
 	   PopGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
 	   PopGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
 	   PopGraphDecrease.transition().duration(1000).ease("linear").attr("d", lineFunc(PopDataDec)).attrTween('d', PoppathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
-	   
+	   PopLegend.call(d3.legend);
 	   
 	}
 	}
@@ -910,17 +917,23 @@ var UrbPopSvg = d3.select("#PopPyramidDiv").append("svg")
     //var LineGraph = vis.append('svg:path').attr('d', lineFunc(lineData1)).attr('stroke', '#ff7f00').attr('stroke-width', 2).attr('fill', 'none').attr('class','MyLine');
 	var UrbPopGraphCurr = UrbPopVis.append('svg:path')
 	.attr("data-legend-color","#ff7f00")
-	.attr("data-legend","Current TFR Decline");
+	.attr("data-legend","Anticipated TFR Decline");
 	var UrbPopGraphDecrease = UrbPopVis.append('svg:path')
 	.attr("data-legend-color","lightgray")
 	.attr("data-legend","Slow TFR Decline"); 
 	
+	//UrbPopGraphCurr.append("text").attr("transform", "translate(75,35)").attr("dy", ".35em").attr("text-anchor", "start").style("fill", "red").text("Close");
 	UrbPopGraphCurr.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataCurr)).attrTween('d', UrbPoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	UrbPopGraphDecrease.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataDec)).attrTween('d', UrbPoppathTween2).attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none');
-	
+	console.log("translate(" + (WIDTH+3) + "," + UrbPopyRange(UrbPopDataCurr[0].y) + ")");
 	
 	//var svg = d3.select("body").append("svg"); 
 	
+	var UrbPopLegend = UrbPopSvg.append("g")
+	.attr("class","legend")
+    .attr("transform","translate("+(WIDTH-150)+",35)")
+    .style("font-size","12px")
+    .call(d3.legend);
   
   
 	
@@ -948,14 +961,14 @@ var UrbPopSvg = d3.select("#PopPyramidDiv").append("svg")
 	   UrbPopGraphCurr.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");;
 	   UrbPopGraphCurr.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataCurr)).attrTween('d', UrbPoppathTween).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
 	   UrbPopGraphDecrease.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray"); 
-	   
+	   UrbPopLegend.call(d3.legend);
 	   
 	}
 	if (FutScen == "Dec"){
 	   UrbPopGraphCurr.attr('stroke', 'lightgray').attr('stroke-width', 2).attr('fill', 'none').attr("data-legend-color","lightgray");
 	   UrbPopGraphDecrease.attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none').attr("data-legend-color","#ff7f00");; 
 	   UrbPopGraphDecrease.transition().duration(1000).ease("linear").attr("d", UrbPopLineFunc(UrbPopDataDec)).attrTween('d', UrbPoppathTween2).attr('stroke', '#ff7f00').attr('stroke-width', 3).attr('fill', 'none');
-	   
+	   UrbPopLegend.call(d3.legend);
 	   
 	}
 	}

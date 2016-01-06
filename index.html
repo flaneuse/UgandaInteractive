@@ -52,49 +52,11 @@
 
 <body>
 
-    <!-- Navigation
-    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
-    <nav id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
-            <li class="sidebar-brand">
-                <a href="#top"  onclick = $("#menu-close").click(); >Directory</a>
-            </li>
-            <li>
-                <a href="#top" onclick = $("#menu-close").click(); >Home</a>
-            </li>
-            <li>
-                <a href="#about" onclick = $("#menu-close").click(); >The Population Problem</a>
-            </li>
-            <li>
-                <a href="#services" onclick = $("#menu-close").click(); >Births</a>
-            </li>
-            <li>
-                <a href="#portfolio" onclick = $("#menu-close").click(); >Livelihoods</a>
-            </li>
-            <li>
-                <a href="#contact" onclick = $("#menu-close").click(); >Contact</a>
-            </li>
-        </ul>
-    </nav> -->
+
 
     <!-- Header -->
     <header id="top" class="header">
-       <!-- <div class="text-vertical-center">
-            <h1>Uganda's Population Problem</h1>
-			<br><br>
-			<div class="container">
-			<div class="row">
-			<div  class="col-lg-12 text-center">
-            <p class="lead">The country has very significant overpopulation problems.
-					Uganda's population has grown from 9.5 million people in 1969 to 34.9 million in 2014. Uganda has a very young population; With a median age of 15 years, it is the lowest median age in the world 
-					and has the fifth highest total fertility rate in the world.</p>
-            </div>
-			</div>
-			</div>
-			<br>
-            <a href="#about" class="Startbtn btn-lg"><span class="glyphicon glyphicon-chevron-down"></span> </a>
-        </div>-->
+ 
     <div id="map" class="header"></div>
   	<div id="text"></div>
 	
@@ -107,12 +69,14 @@
 				
                 <div  class="col-lg-12 text-center">
 				
-				<p class="lead" id="FutureInfo"> The current population of Uganda is estimated at 37,101,745. However, growth estimates indicate continued rapid population increases. </p>
+				<p class="lead" id="FutureInfo"> The current population of Uganda is approximately 35 million people. However, growth estimates indicate continued rapid population increases. </p>
 				<p class="lead" id ="MilestoneB"><button class ="btn-dark btn-lg" type="button" onclick="ShowFutureLine()">Project Population Estimates</button>
 				</p>
                     
 					<div id="popproj" class="popproj"><svg id="visualisation" width="1000" height="500"></svg>
 					</div>
+					<br>
+					<p>Source: United Nations, Department of Economic and Social Affairs, Population Division (2015). World Population Prospects: The 2015 Revision, custom data acquired via website. <a href="http://esa.un.org/unpd/wpp/DataQuery/">http://esa.un.org/unpd/wpp/DataQuery/</a>.</p>
 					</div>					
 					<script type="application/javascript" src="UNPopProjection.js">
 					</script>
@@ -125,8 +89,8 @@
     </section>
 	    <!-- Callout -->
     <aside class="callout">
-        <div class="text-vertical-center">
-            
+        <div class="text-vertical-left">
+            <p> Public Flickr Image found at http://bit.ly/1OOE299 </p>
         </div>
     </aside>
     <!-- Services -->
@@ -148,8 +112,8 @@
 		</div>
     </section>
 	<aside class="callout2">
-        <div class="text-vertical-center">
-            
+        <div class="text-vertical-left">
+            <p> Public Flickr Image found at https://www.flickr.com/photos/128539140@N03/18445492831/ </p>
         </div>
     </aside>
 	<section id="services" class="portfolio">
@@ -190,10 +154,20 @@
 					<ul class="text-left">
 					
 						<li class="listimg"> Stresses to Livelihoods
-							<ul><li>The most prevalent shock was to natural hazards (90% due to lack of rainfall or drought).
-								<li>Natural Hazard shocks were most widespread in 2009/10 in the extreme northeast and northwest and the south</li>
+							<ul><li>The most prevalent shocks were natural hazard shocks (90% due to lack of rainfall or drought).
+
+								<li>Households in Central Rural region were about 2 ½ times MORE likely to experience a hazard shock in 2009-2010 than similar households in East Rural region.</li>
+								<li>Natural Hazard shocks were most widespread in 2009/10 in the extreme northeast and northwest and the south. </li>
 							</li></ul>
-							
+						<br><li class="listimg"> Health 
+							<ul>
+								<li> Health shocks were the second most prevalent type of shock in Uganda during the study period. </li>
+								<li>Across a large swath of Eastern Uganda, larger households experienced more health shocks.</li>
+								<li>In a small area of southwest Uganda, larger households actually experienced fewer household shocks. </li>
+								<li>Good household infrastructure was also associated with fewer health shocks.</li>
+								
+							</ul>
+						</li>	
 						</li class="listimg">
 						<br><li class="listimg">Nutrition 
 							<ul><li> Over 30% of children (0-5) in Uganda are stunted. In rural areas, this rises to about 35%. </li>
@@ -203,89 +177,26 @@
 								</li>
 							</ul>
 						</li>
-						<br><li class="listimg"> Assets
+						<br><li class="listimg"> Income Generation
 							<ul>
-								<li>Les expenditure per capita
-									<ul><li> The poorest households derive the greatest share of income from agriculture (crop production). And, agriculture is the most important income-generating activity across all head of households age groups.</li></ul>
-								</li>
+								<li> Agriculture is the most important income-generating activity across all head of households age groups.</li>
+								<li>From 2009-2012, crop income was the most important in the West.</li>
+								<li> The poorest households derive the greatest share of income from agriculture (crop production).</li>
+								
 							</ul>
 						</li>
 					</ul>
 					<br><p class="lead"> Explore Livelihood Analysis Visuals:</p>
-					<p class=" listimg"><a href="img/UGA_LivelihoodAnalysis_HazardShocks.png"> Hazard Shocks</a><br>
-					<a href="img/UGA_LivelihoodAnalysis_HealthShock.png"> Health Shocks</a><br>
-					<a href="img/UGA_LivelihoodBasemaps_HouseholdHealth.png"> Household Health</a><br>
-					<a href="img/UGA_LivelihoodMapping_DietaryDiversity.png"> Dietary Diversity</a><br>
-					<a href="img/UGA_LivelihoodMapping_FCS.png"> Food Consumption</a><br>
-					<a href="img/UGA_LivelihoodBasemaps_HouseholdDemographics.png"> Household Demographics</a>
+					<p class=" listimg"><a href="img/UGA_LivelihoodAnalysis_HazardShocks.png" target="_blank"> Hazard Shocks</a><br>
+					<a href="img/UGA_LivelihoodAnalysis_HealthShock.png" target="_blank"> Health Shocks</a><br>
+					<a href="img/UGA_LivelihoodBasemaps_HouseholdHealth.png" target="_blank"> Household Health</a><br>
+					<a href="img/UGA_LivelihoodMapping_DietaryDiversity.png" target="_blank"> Dietary Diversity</a><br>
+					<a href="img/UGA_LivelihoodMapping_FCS.png" target="_blank"> Food Consumption</a><br>
+					<a href="img/UGA_LivelihoodBasemaps_HouseholdDemographics.png" target="_blank"> Household Demographics</a>
 					</p>
 					<br>
 					<p class="lead">As the population continues to increase, how will Ugandan livelihoods be affected? Population increases and shocks related to health, education and natural hazards can cause stress on Livelihood systems. Geography matters in understanding these effects. </p>
 					
-                      <!--<img src="img/UGA_LivelihoodBasemaps_HouseholdDemographics.png">-->
-					<!--<div id="LAMcarousel" class="carousel slide" data-ride="carousel">
-					  <!-- Indicators
-					  <ol class="carousel-indicators">
-						<li class ="carousel-circles" data-target="#LAMcarousel" data-slide-to="0" class="active"></li>
-						<li class ="carousel-circles" data-target="#LAMcarousel" data-slide-to="1"></li>
-						<li class ="carousel-circles" data-target="#LAMcarousel" data-slide-to="2"></li>
-						<li class ="carousel-circles" data-target="#LAMcarousel" data-slide-to="3"></li>
-						<li class ="carousel-circles" data-target="#LAMcarousel" data-slide-to="4"></li>
-						<li class ="carousel-circles" data-target="#LAMcarousel" data-slide-to="5"></li>
-					  </ol>
-
-					  <!-- Wrapper for slides
-					  <div class="carousel-inner" role="listbox">
-						<div class="item active">
-						  <img src="img/UGA_LivelihoodBasemaps_HouseholdDemographics.png" alt="Demographics">
-						  <div class="carousel-caption">
-							
-						  </div>
-						</div>
-						<div class="item">
-						  <img src="img/UGA_LivelihoodBasemaps_HouseholdHealth.png" alt="Health">
-						  <div class="carousel-caption">
-							
-						  </div>
-						</div>
-						<div class="item">
-						  <img class= "verticalimage" src="img/UGA_LivelihoodAnalysis_HealthShock.png" alt="Health">
-						  <div class="carousel-caption">
-							
-						  </div>
-						</div>
-						<div class="item">
-						  <img src="img/UGA_LivelihoodMapping_DietaryDiversity.png" alt="Diet">
-						  <div class="carousel-caption">
-							
-						  </div>
-						</div>
-						<div class="item">
-						  <img src="img/UGA_LivelihoodMapping_FCS.png" alt="Food">
-						  <div class="carousel-caption">
-							
-						  </div>
-						</div>
-						<div class="item">
-						  <img class= "verticalimage" src="img/UGA_LivelihoodAnalysis_HazardShocks.png" alt="Hazards">
-						  <div class="carousel-caption">
-							
-						  </div>
-						</div>
-						
-					  </div> -->
-
-					  <!-- Controls
-					  <a class="left carousel-control" href="#LAMcarousel" role="button" data-slide="prev" onclick="$('#LAMcarousel').carousel('prev')">
-						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-					  </a>
-					  <a class="right carousel-control" href="#LAMcarousel" role="button" data-slide="next" onclick="$('#LAMcarousel').carousel('next')">
-						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-					  </a>
-					</div>
-					</div> -->
 				
                 <!-- /.col-lg-10 -->
             </div>
@@ -307,14 +218,16 @@
                             <div class="portfolio-item">
                                 
                                     <img class="img-portfolio img-responsive" src="img/ChildrenWavingflickr.jpg">
-									
-                                
+	
+                                <p> Public Flickr Image found at https://www.flickr.com/photos/andrerolfes/70602528/in/photostream/ </p>
+
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="portfolio-item">
                                 
                                     <img class="img-portfolio img-responsive" src="img/UgandaGrainUSAIDflickr.jpg">
+									<p> Public Flickr Image found at http://bit.ly/1mCzIUA </p>
                                 
                             </div>
                         </div>
@@ -348,7 +261,7 @@
         <div class="container">
             <div class="row">
                 <div  class="col-lg-12 text-center">
-                   <p class="lead">How will changes in total fertility rates affect malnutrition in Uganda? Will increasing agricultural yields have an effect on malnutrition? </p>
+                   <p class="lead">How will changes in total fertility rates affect malnutrition in Uganda? Will increasing agricultural production have an effect on malnutrition? </p>
                     <!--<div id="aboutContent"> </div>-->
 					
 					<iframe src="linechart3.html" width="100%" height="700" frameborder="0"></iframe>
@@ -363,12 +276,16 @@
 	<script src="js/LeafletMap2.js"></script>
     <!-- Footer -->
     <footer>
+	
         <div class="container">
-            <div class="row">
+            
+			<div class="row">
                 <div class="col-lg-10 col-lg-offset-1 text-center">
                     <img src="img/USAID LOGOSmall.jpg">
                     <p>USAID GeoCenter 2015</p>
+					<p> Public Flickr Image found at http://bit.ly/1VJwH0g</p>
                 </div>
+				
             </div>
         </div>
     </footer>

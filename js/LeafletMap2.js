@@ -1,4 +1,4 @@
-var map35 = L.map('map35',{zoomControl: false}).setView([1.349, 32.722], 7);
+var map35 = L.map('map35',{zoomControl: false, scrollWheelZoom: false}).setView([1.349, 32.722], 7);
 
 
 /*L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {

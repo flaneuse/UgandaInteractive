@@ -82,7 +82,7 @@ var run = 0;
 			}
 			
 			if(run == 4){
-			setTimeout(function () {dojo.byId("text").innerHTML="What are the effects of the population growth? What happens if growth rates increase or decline? <br><br><img src='img/startuplegend.jpg'> <br><br>Scroll down to learn more. <br><br><button type='button' class='btn-dark' onclick='ReRun();'>Rerun Animation</button> <br><br><a href='#about'><div class='scroll-invite-btn'></div></a>"; map.showPanArrows(); map.showZoomSlider(); }, 5000);
+			setTimeout(function () {dojo.byId("text").innerHTML="The current growth rates create a unique challenge for the country of Uganda. Scroll down to learn more. <br><br><img src='img/startuplegend.jpg'> <br><br><br><br><button type='button' class='btn-dark' onclick='ReRun();'>Rerun Animation</button> <br><br>"; map.showPanArrows(); map.showZoomSlider(); }, 5000);
 			} //<a href='#about' id='startbutton' class='.btn-light glyphicon glyphicon-chevron-down'></a>
 			
 			

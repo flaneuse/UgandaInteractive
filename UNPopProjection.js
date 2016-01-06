@@ -10,11 +10,6 @@
 						'z': 'Beginning of Millenium: 23 M'
 					},
 					{
-						'x': 2014,
-						'y': 	200000000,
-						'z': 'Today: 39 M'
-					},
-					{
 						'x': 2022,
 						'y': 	200000000,
 						'z': '2023: Population expected to hit 50 M'
